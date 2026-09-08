@@ -1,0 +1,11 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: var(--color-bg);
+}
+
+p-menubar{
+    background: var(--color-bg);
+    border: 0.5pt solid var(--color-nav);
+}
