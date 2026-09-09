@@ -1,6 +1,10 @@
-<p>inscription Works!</p>
 
-<form [formGroup]="form">
+
+@if (erreur()) {
+    <p class="error">Code : {{erreur()?.code}} - Description : {{erreur()?.description}}</p>
+}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
     <label pLabel for="Nom">Nom :</label>
     <input pInputText id="Nom" placeholder="Entre votre nom" formControlName="nom"/> 
     @if (Nom.touched && Nom.invalid) {

@@ -1,9 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonDirective } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { LabelModule } from 'primeng/label';
 import { MotDePasseValidator, MotDePasseValidatorError } from '../../../shared/validators/mot-de-passe.validator';
+import { AuthService } from '../../../core/services/auth.service';
+import { InscriptionRequete } from '../../../core/models/auth.model';
+import { Router } from '@angular/router';
+import { ErreurModel } from '../../../core/models/erreur.models';
 
 @Component({
   imports: [LabelModule, InputTextModule, ReactiveFormsModule, ButtonDirective],
@@ -12,6 +16,12 @@ import { MotDePasseValidator, MotDePasseValidatorError } from '../../../shared/v
   templateUrl: './inscription.html',
 })
 export class Inscription {
+
+  private readonly authService = inject(AuthService);
+  private readonly route = inject(Router);
+
+  readonly erreur = signal<ErreurModel | null>(null)
+
 
   readonly form : FormGroup = inject(FormBuilder).nonNullable.group({
     nom : ["",[Validators.required, Validators.maxLength(150)]],
@@ -31,8 +41,6 @@ export class Inscription {
   get Email(){
     return this.form.controls["email"]
   }
-
-
   get MotDePasse(){
     return this.form.controls["motDePasse"]
   }
@@ -40,4 +48,25 @@ export class Inscription {
   get MotDePasseErreur() : MotDePasseValidatorError| null{
     return this.MotDePasse.errors?.['mdpRobuste'] ?? null
   }
+
+  onSubmit(){
+    if(this.form.invalid)
+      return 
+
+    const requete : InscriptionRequete = this.form.value
+
+
+    this.authService.Inscription(requete).subscribe({
+      next : () => { 
+        this.erreur.set(null);
+        this.route.navigate(['connection'])
+
+      },
+      error  : (err ) => {
+        this.erreur.set(err.error);
+      }
+    })
+  }
+
+ 
 }
