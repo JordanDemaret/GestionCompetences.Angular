@@ -51,7 +51,7 @@
     }
 
     <label pLabel for="MotDePasse">Mot de passe :</label>
-    <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse"/>
+    <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
     @if (MotDePasse.touched && MotDePasse.invalid) {
         @if(MotDePasse.hasError('required')){
             <p class="error">Le mot de passe est requis.</p>
@@ -63,5 +63,6 @@
         } 
     }
   
+    <br>
     <button pButton [disabled]="form.invalid">Création d'un compte</button>
 </form>

@@ -8,9 +8,10 @@ import { AuthService } from '../../../core/services/auth.service';
 import { InscriptionRequete } from '../../../core/models/auth.model';
 import { Router } from '@angular/router';
 import { ErreurModel } from '../../../core/models/erreur.models';
+import { AfficherMotDePasseDirective } from "../../../shared/directives/afficher-mot-de-passe.directive";
 
 @Component({
-  imports: [LabelModule, InputTextModule, ReactiveFormsModule, ButtonDirective],
+  imports: [LabelModule, InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective],
   selector: 'app-inscription',
   styleUrl: './inscription.css',
   templateUrl: './inscription.html',

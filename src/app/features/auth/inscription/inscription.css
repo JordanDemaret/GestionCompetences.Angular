@@ -2,6 +2,12 @@
     color: red;
 }
 
+form input[pInputText] {
+  width: min(100%,250px);
+  box-sizing: border-box;
+  display: block;
+}
+
 .password-strength {
   list-style: none;
   margin: 0;

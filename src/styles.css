@@ -6,3 +6,34 @@
     --color-bg :  #5886e3;
     --color-nav :  #C0C0C0;
 }
+
+.password-field {
+  position: relative;
+  display: inline-block;
+  width: min(100%, 250px);
+}
+
+.password-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 40px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pi {
+  font-size: 1.4rem  !important;
+  color: #666;
+}
