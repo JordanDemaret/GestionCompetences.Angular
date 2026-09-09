@@ -1,1 +1,18 @@
 <p>connection works!</p>
+
+
+@if (erreur()) {
+    <p class="error">Code : {{erreur()?.code}} - Description : {{erreur()?.description}}</p>
+}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <label pLabel for="Email"> Email : </label>
+    <input pInputText id="Email" placeholder="Entre votre Email" formControlName="email"/>
+   
+    <label pLabel for="MotDePasse">  Mot de passe :    </label>
+    <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
+ 
+
+    <button pButton [disabled]="form.invalid">Connection</button>
+</form>

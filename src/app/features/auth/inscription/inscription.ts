@@ -60,8 +60,17 @@ export class Inscription {
     this.authService.Inscription(requete).subscribe({
       next : () => { 
         this.erreur.set(null);
-        this.route.navigate(['connection'])
-
+        this.authService.Connection({
+          email : requete.email,
+          motDePasse : requete.motDePasse
+        }).subscribe({
+            next : () => { 
+              this.route.navigate([''])
+            },
+            error  : (err ) => {
+              this.erreur.set(err.error);
+            }
+          })
       },
       error  : (err ) => {
         this.erreur.set(err.error);
