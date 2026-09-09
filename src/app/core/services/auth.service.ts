@@ -1,4 +1,4 @@
-import { inject, Service, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import { Inscription } from '../../features/auth/inscription/inscription';
 import { AccessToken, ConnectionRequete, InscriptionRequete } from '../models/auth.model';
 import { Observable, tap } from 'rxjs';
@@ -15,6 +15,8 @@ export class AuthService {
     
     private readonly tokens = signal<AccessToken | null>(readFromStorage());
 
+    readonly isLogin = computed(() => this.tokens() !== null)
+
     Inscription (requete : InscriptionRequete) : Observable<unknown> {
         return this.http.post(this.UrlBase, requete);
     }
@@ -27,6 +29,14 @@ export class AuthService {
                     }));
 
     }
+
+    Deconnection  () :void {
+        this.tokens.set(null);
+        sessionStorage.removeItem(STORAGE_KEY);
+        console.log("deco")
+    }
+
+
 
 }
 function readFromStorage(): AccessToken | null {
