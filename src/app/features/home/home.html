@@ -1,0 +1,23 @@
+   <h2>Bienvenue sur l'application de gestion des compétences</h2>
+   @if (!authServ.isLogin()) {
+    <div>
+        <p>L'application qui vous aide à</p>
+        <ul>
+            <li>Gérer vos compétences actuelles</li>
+            <li>Visualiser vos progressions</li>
+            <li>Découvrir des nouvelles compétences</li>
+        </ul>
+
+
+        <p>Veuillez vous connecter </p>
+        <div>
+            <a routerLink="inscription">Inscription</a>
+            <a routerLink="connexion">Connexion</a>
+        </div>
+    </div>
+}
+@else {
+    <div>
+        <p>Vous êtes connecté</p>
+    </div>
+}

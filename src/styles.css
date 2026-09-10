@@ -2,15 +2,17 @@
 
 @import 'tailwindcss';
 
+
+
 :root {
-    --color-bg :  #5886e3;
-    --color-nav :  #C0C0C0;
+    --color-bg :  #709df8;
+    --color-silver :  #C0C0C0;
 }
 
 .password-field {
   position: relative;
   display: inline-block;
-  width: min(100%, 250px);
+  width: 100%;
 }
 
 .password-field input {
