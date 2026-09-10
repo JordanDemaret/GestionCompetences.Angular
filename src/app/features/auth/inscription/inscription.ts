@@ -2,16 +2,15 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonDirective } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { LabelModule } from 'primeng/label';
 import { MotDePasseValidator, MotDePasseValidatorError } from '../../../shared/validators/mot-de-passe.validator';
 import { AuthService } from '../../../core/services/auth.service';
 import { InscriptionRequete } from '../../../core/models/auth.model';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ErreurModel } from '../../../core/models/erreur.models';
 import { AfficherMotDePasseDirective } from "../../../shared/directives/afficher-mot-de-passe.directive";
 
 @Component({
-  imports: [LabelModule, InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective],
+  imports: [InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective, RouterLink],
   selector: 'app-inscription',
   styleUrl: './inscription.css',
   templateUrl: './inscription.html',
@@ -60,7 +59,7 @@ export class Inscription {
     this.authService.Inscription(requete).subscribe({
       next : () => { 
         this.erreur.set(null);
-        this.authService.Connection({
+        this.authService.Connexion({
           email : requete.email,
           motDePasse : requete.motDePasse
         }).subscribe({

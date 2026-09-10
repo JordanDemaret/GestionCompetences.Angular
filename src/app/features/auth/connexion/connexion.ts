@@ -2,20 +2,20 @@ import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { ErreurModel } from '../../../core/models/erreur.models';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ConnectionRequete } from '../../../core/models/auth.model';
+import { ConnexionRequete } from '../../../core/models/auth.model';
 import { Router } from '@angular/router';
-import { LabelModule } from 'primeng/label';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonDirective } from 'primeng/button';
 import { MotDePasseValidatorError } from '../../../shared/validators/mot-de-passe.validator';
+import { AfficherMotDePasseDirective } from '../../../shared/directives/afficher-mot-de-passe.directive';
 
 @Component({
-  imports: [LabelModule, InputTextModule, ReactiveFormsModule, ButtonDirective],
-  selector: 'app-connection',
-  styleUrl: './connection.css',
-  templateUrl: './connection.html',
+  imports: [InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective],
+  selector: 'app-connexion',
+  styleUrl: './connexion.css',
+  templateUrl: './connexion.html',
 })
-export class Connection {
+export class Connexion {
 
 
   private readonly authService = inject(AuthService);
@@ -44,10 +44,10 @@ export class Connection {
     if(this.form.invalid)
       return 
 
-    const requete : ConnectionRequete = this.form.value
+    const requete : ConnexionRequete = this.form.value
 
 
-    this.authService.Connection(requete).subscribe({
+    this.authService.Connexion(requete).subscribe({
       next : () => { 
         console.log("ok 1");
         this.erreur.set(null);

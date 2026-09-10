@@ -1,68 +1,93 @@
 
+<div  class="divGeneral">
+    <div class="divForm">
+        
+        <h1>Création d'un compte</h1>
+        <p>Rejoigniez la plateforme de gestion de compétences</p>
 
-@if (erreur()) {
-    <p class="error">Code : {{erreur()?.code}} - Description : {{erreur()?.description}}</p>
-}
+        @if (erreur()) {
+            <p class="error">Code : {{erreur()?.code}} - Description : {{erreur()?.description}}</p>
+        }
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <label pLabel for="Nom">Nom :</label>
-    <input pInputText id="Nom" placeholder="Entre votre nom" formControlName="nom"/> 
-    @if (Nom.touched && Nom.invalid) {
-        @if(Nom.hasError('required')){
-            <p class="error">Le nom est requis.</p>
-        }
-        @else {
-            <p class="error">Le nom doit faire moi de 150 caractère.</p>
-        }
-    }
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <label pLabel for="Prenom">Prénom :</label>
-    <input pInputText id="Prenom" placeholder="Entre votre prénom" formControlName="prenom"/> 
-    @if (Prenom.touched && Prenom.invalid) {
-        @if(Nom.hasError('required')){
-            <p class="error">Le prénom est requis.</p>
-        }
-        @else {
-            <p class="error">Le prénom doit faire moi de 150 caractère.</p>
-        }
-    }
-    
-    <label pLabel for="Email">Email :</label>
-    <input pInputText id="Email" placeholder="Entre votre Email" formControlName="email"/>
-    @if (Email.touched && Email.invalid) {
-        @if(Email.hasError('required')){
-            <p class="error">Le email est requis.</p>
-        }
-        @else if (Email.hasError('email') || Email.hasError('pattern')) {
-            <p class="error">Forma du email incorrecte.</p>
-        }
-        @else {
-            <p class="error">Le  doit faire moi de 150 caractère.</p>
-        }  
-    }
+            <div>  
+                <label pLabel for="Nom">Nom </label>
+                <input pInputText id="Nom" placeholder="Entre votre nom" formControlName="nom"/> 
+                @if (Nom.touched && Nom.invalid) {
+                    @if(Nom.hasError('required')){
+                        <p class="error">Le nom est requis.</p>
+                    }
+                    @else {
+                        <p class="error">Le nom doit faire moi de 150 caractère.</p>
+                    }
+                }
+            </div>
 
-    @if (MotDePasse.value) {
-        <ul class="password-strength">
-            <li [class.valid]="!MotDePasseErreur?.nombre">Un chiffre</li>
-            <li [class.valid]="!MotDePasseErreur?.minuscule">Une minuscule</li>
-            <li [class.valid]="!MotDePasseErreur?.majuscule">Une majuscule</li>
-            <li [class.valid]="!MotDePasseErreur?.special">Un caractère spécial</li>
-        </ul>
-    }
+            <div>
+                <label pLabel for="Prenom">Prénom </label>
+                <input pInputText id="Prenom" placeholder="Entre votre prénom" formControlName="prenom"/> 
+                @if (Prenom.touched && Prenom.invalid) {
+                    @if(Nom.hasError('required')){
+                        <p class="error">Le prénom est requis.</p>
+                    }
+                    @else {
+                        <p class="error">Le prénom doit faire moi de 150 caractère.</p>
+                    }
+                }
+            </div>
 
-    <label pLabel for="MotDePasse">Mot de passe :</label>
-    <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
-    @if (MotDePasse.touched && MotDePasse.invalid) {
-        @if(MotDePasse.hasError('required')){
-            <p class="error">Le mot de passe est requis.</p>
-        }
-        @else if (MotDePasse.hasError('minlength')) {
-            <p class="error">Le champ doit faire minimum 8 caractères</p>
-        } @else if (MotDePasse.hasError('maxlength')) {
-            <p class="error">Le champ doit faire maximum 128 caractères</p>
-        } 
-    }
-  
-    <br>
-    <button pButton [disabled]="form.invalid">Création d'un compte</button>
-</form>
+            <div>
+                <label pLabel for="Email">Email </label>
+                <input pInputText id="Email" placeholder="Entre votre Email" formControlName="email"/>
+                @if (Email.touched && Email.invalid) {
+                    @if(Email.hasError('required')){
+                        <p class="error">L'email est requis.</p>
+                    }
+                    @else if (Email.hasError('email') || Email.hasError('pattern')) {
+                        <p class="error">Forma du email incorrecte.</p>
+                    }
+                    @else {
+                        <p class="error">Le  doit faire moi de 150 caractère.</p>
+                    }  
+                }
+            </div>
+
+            <div>
+               
+
+                <label pLabel for="MotDePasse">Mot de passe  
+                    @if (MotDePasse.value) {
+                        <ul class="password-strength">
+                            <li [class.valid]="!MotDePasseErreur?.nombre">Un chiffre</li>
+                            <li [class.valid]="!MotDePasseErreur?.minuscule">Une minuscule</li>
+                            <li [class.valid]="!MotDePasseErreur?.majuscule">Une majuscule</li>
+                            <li [class.valid]="!MotDePasseErreur?.special">Un caractère spécial</li>
+                        </ul>
+                    }
+                </label>
+
+                <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
+                @if (MotDePasse.touched && MotDePasse.invalid) {
+                    @if(MotDePasse.hasError('required')){
+                        <p class="error">Le mot de passe est requis.</p>
+                    }
+                    @else if (MotDePasse.hasError('minlength')) {
+                        <p class="error">Le champ doit faire minimum 8 caractères</p>
+                    } @else if (MotDePasse.hasError('maxlength')) {
+                        <p class="error">Le champ doit faire maximum 128 caractères</p>
+                    } 
+                }
+            </div>
+            
+            
+            <div>
+                <button class="p-button" pButton [disabled]="form.invalid">Création d'un compte</button>
+                <p class="lienConnexion">Vous avez déjà un compte ? 
+                    <a routerLink="/connexion"> Connexion</a> 
+                </p>
+            </div>
+        </form>
+
+    </div>
+</div>

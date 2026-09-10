@@ -1,11 +1,31 @@
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    background: var(--color-bg);
+
+p-menubar {
+  background: var(--color-bg);
+  border: 0.5pt solid var(--color-silver);
+  width: 100%; 
 }
 
-p-menubar{
-    background: var(--color-bg);
-    border: 0.5pt solid var(--color-nav);
+:host ::ng-deep .p-menubar .p-menubar-root-list,
+:host ::ng-deep .p-menubar .p-menubar-list {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center;
+}
+
+
+:host ::ng-deep .p-menubar .p-icon,
+:host ::ng-deep .p-menubar .p-menuitem-icon,
+:host ::ng-deep .p-menubar .pi {
+  color: #090000 !important;
+  font-size: 1.4rem !important;
+}
+
+:host ::ng-deep .p-menubar .p-menubar-root-list > .push-right,
+:host ::ng-deep .p-menubar .p-menubar-list > .push-right {
+  margin-left: auto !important;
+}
+
+:host ::ng-deep .active-item {
+  background: white;
+  border-radius: 4px;
 }

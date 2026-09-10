@@ -1,9 +1,9 @@
-export interface InscriptionRequete extends ConnectionRequete{
+export interface InscriptionRequete extends ConnexionRequete{
     "nom": string,
     "prenom": string,  
 }
 
-export interface ConnectionRequete {
+export interface ConnexionRequete {
     "email": string,
     "motDePasse": string
 }

@@ -1,6 +1,5 @@
 import { computed, inject, Service, signal } from '@angular/core';
-import { Inscription } from '../../features/auth/inscription/inscription';
-import { AccessToken, ConnectionRequete, InscriptionRequete } from '../models/auth.model';
+import { AccessToken, ConnexionRequete, InscriptionRequete } from '../models/auth.model';
 import { Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -21,7 +20,7 @@ export class AuthService {
         return this.http.post(this.UrlBase, requete);
     }
 
-    Connection  (request :  ConnectionRequete) : Observable<AccessToken> {
+    Connexion  (request :  ConnexionRequete) : Observable<AccessToken> {
         return this.http.post<AccessToken>(`${this.UrlBase}/login`, request)
                     .pipe(tap((token : AccessToken) => {
                         this.tokens.set(token)
@@ -30,7 +29,7 @@ export class AuthService {
 
     }
 
-    Deconnection  () :void {
+    Deconnexion  () :void {
         this.tokens.set(null);
         sessionStorage.removeItem(STORAGE_KEY);
         console.log("deco")
