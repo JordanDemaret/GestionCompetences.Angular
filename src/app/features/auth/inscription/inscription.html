@@ -3,7 +3,7 @@
     <div class="divForm">
         
         <h1>Création d'un compte</h1>
-        <p>Rejoigniez la plateforme de gestion de compétences </p>
+        <p>Rejoigniez la plateforme de gestion de compétences</p>
 
         @if (erreur()) {
             <p class="error">Code : {{erreur()?.code}} - Description : {{erreur()?.description}}</p>
@@ -80,10 +80,13 @@
                 }
             </div>
             
-            <button class="p-button" pButton [disabled]="form.invalid">Création d'un compte</button>
-            <p class="lienconnexion">Vous avez déjà un compte? 
-                <a routerLink="/connexion">Connexion</a> 
-            </p>
+            
+            <div>
+                <button class="p-button" pButton [disabled]="form.invalid">Création d'un compte</button>
+                <p class="lienConnexion">Vous avez déjà un compte ? 
+                    <a routerLink="/connexion"> Connexion</a> 
+                </p>
+            </div>
         </form>
 
     </div>

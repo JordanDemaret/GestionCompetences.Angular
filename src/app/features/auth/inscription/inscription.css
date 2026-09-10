@@ -2,14 +2,7 @@
     color: red;
 }
 
-h1{
-  font-size: 20px; font-weight: 500;
-}
 
-p{
-  font-size: 13px;
-  color: var(--text-secondary)
-}
 
 label{
   color: rgb(97, 97, 104);
@@ -35,7 +28,10 @@ label{
 form div {
   margin: 5px;
 }
-
+p{
+  font-size: 13px;
+  color: var(--text-secondary)
+}
 
 form input[pInputText]{
   width: 100%;
@@ -71,4 +67,16 @@ form input[pInputText]{
 
 .password-strength li.valid::before {
   content: '✅ ';
+}
+
+a {
+  color: var(--color-lien);
+  margin-left: 2px;
+}
+
+
+.lienConnexion {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
 }

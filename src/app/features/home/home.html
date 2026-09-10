@@ -1,23 +1,32 @@
-   <h2>Bienvenue sur l'application de gestion des compétences</h2>
-   @if (!authServ.isLogin()) {
+<div class="divAccueil">
     <div>
-        <p>L'application qui vous aide à</p>
-        <ul>
-            <li>Gérer vos compétences actuelles</li>
-            <li>Visualiser vos progressions</li>
-            <li>Découvrir des nouvelles compétences</li>
-        </ul>
+        <h1>Bienvenue sur l'application de gestion des compétences</h1>
+        @if (!authServ.isLogin()) {
+            <div class="nonCo">
+                <p>L'application qui vous aide à</p>
+                <ul>
+                    <li>Gérer vos compétences actuelles</li>
+                    <li>Visualiser vos progressions</li>
+                    <li>Découvrir des nouvelles compétences</li>
+                </ul>
 
-
-        <p>Veuillez vous connecter </p>
-        <div>
-            <a routerLink="inscription">Inscription</a>
-            <a routerLink="connexion">Connexion</a>
-        </div>
+                <p>Veuillez vous connecter </p>
+                <div>
+                    <p-button severity="info"  >
+                        <a routerLink="inscription">Inscription</a>
+                    </p-button>
+                    <p-button>
+                        <a class="connex" routerLink="connexion">Connexion</a>
+                    </p-button>
+                
+                </div>
+            </div>
+        }
+        @else {
+            <div> 
+                <p>Vous êtes connecté</p>
+            </div>
+        }
     </div>
-}
-@else {
-    <div>
-        <p>Vous êtes connecté</p>
-    </div>
-}
+</div>
+  

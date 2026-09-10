@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonDirective } from 'primeng/button';
 import { MotDePasseValidatorError } from '../../../shared/validators/mot-de-passe.validator';
+import { AfficherMotDePasseDirective } from '../../../shared/directives/afficher-mot-de-passe.directive';
 
 @Component({
-  imports: [InputTextModule, ReactiveFormsModule, ButtonDirective],
+  imports: [InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective],
   selector: 'app-connexion',
   styleUrl: './connexion.css',
   templateUrl: './connexion.html',

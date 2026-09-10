@@ -1,18 +1,32 @@
-<p>connection works!</p>
+<div  class="divGeneral">
+    <div class="divForm">
+
+        <h1>Connexion</h1>
+        <p>Connecter vous pour gérée vos compétences</p>
 
 
-@if (erreur()) {
-    <p class="error">Code : {{erreur()?.code}} - Description : {{erreur()?.description}}</p>
-}
+        @if (erreur()) {
+            <p class="error">Code : {{erreur()?.code}} - Description : {{erreur()?.description}}</p>
+        }
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <label pLabel for="Email"> Email : </label>
-    <input pInputText id="Email" placeholder="Entre votre Email" formControlName="email"/>
-   
-    <label pLabel for="MotDePasse">  Mot de passe :    </label>
-    <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
- 
+            <div>
+                <label pLabel for="Email"> Email  </label>
+                <input pInputText id="Email" placeholder="Entre votre Email" formControlName="email"/>
+        
+            </div>
+           
+            <div>
+                <label pLabel for="MotDePasse">Mot de passe </label>
+                <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
+            </div>
+            
+            <div>
+                <button pButton [disabled]="form.invalid">Connection</button>
+            </div>
+            
+        </form>
 
-    <button pButton [disabled]="form.invalid">Connection</button>
-</form>
+    </div>
+</div>
