@@ -49,7 +49,6 @@ export class Connexion {
 
     this.authService.Connexion(requete).subscribe({
       next : () => { 
-        console.log("ok 1");
         this.erreur.set(null);
         this.route.navigate([''])
       },

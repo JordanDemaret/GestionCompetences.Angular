@@ -1,0 +1,22 @@
+
+<form [formGroup]="form">  
+    
+    <div>
+        @if (form.get('Nom')?.touched && form.get('Nom')?.errors?.['required']) {
+            <small class="text-red-500">Le nom est obligatoire.</small>
+        }
+        @if (form.get('Nom')?.errors?.['doublon']) {
+            <small class="text-red-500">Une catégorie avec ce nom existe déjà.</small>
+        }
+    </div>
+
+    <div>
+        <label for="Nom">Nom de la compétence </label>
+        <input pInputText id="Nom" placeholder="Entre le nom de la compétence" formControlName="Nom" >
+    </div>
+    
+    <div>
+        <p-button label="Annuler" severity="secondary" (onClick)="onCancel()"/>
+        <p-button label="Enregistrer" severity="success" (onClick)="onSave()"/>
+    </div>
+</form>

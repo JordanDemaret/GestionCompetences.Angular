@@ -1,6 +1,11 @@
 
 <app-navbar/>
 
-<main>
-  <router-outlet />
+<main class="layout-container">
+  <div class="sidebar-section">
+    <app-utilisateur-nav-bar></app-utilisateur-nav-bar>
+  </div>
+  <div class="content-section">
+    <router-outlet />
+  </div>
 </main>

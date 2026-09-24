@@ -1,0 +1,43 @@
+<p-button (onClick)="addCompetence()" > 
+    
+       Ajouter une catégorie 
+
+</p-button>
+
+<p-table  [value]="categorieList()">
+     
+    <ng-template #header>
+        <tr>
+            <th>Nom</th>
+        </tr>
+    </ng-template >
+    <ng-template #body let-cat>
+        <tr>
+            <td>{{cat.nom}}</td>
+            <td><p-button severity="secondary"  (onClick)="modifCompetence(cat)">Modifier</p-button></td>
+            
+        </tr>
+    </ng-template>
+    
+
+</p-table>
+
+<p-dialog [(visible)]="veuxAjouter" header="Ajouter une Catégorie" [modal]="true">
+    <app-categorie-ajouter
+        [categoriesExistantes]="categorieList()",
+       (annuler)="veuxAjouter = false",
+       (sauvegarder)="postNouveauCompetence($event)"
+       >
+    </app-categorie-ajouter>
+</p-dialog>
+
+
+<p-dialog [(visible)]="veuxModifier" header="Modifier une Catégorie" [modal]="true">
+    <app-categorie-modifier
+        [categoriesExistantes]="categorieList()",
+        [categorie]="categorieCible!"
+       (annuler)="this.categorieCible = null; this.veuxModifier = false",
+       (sauvegarder)="putNouveauCompetence($event)"
+       >
+    </app-categorie-modifier>
+</p-dialog>
