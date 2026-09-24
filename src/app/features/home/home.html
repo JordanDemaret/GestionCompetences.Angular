@@ -13,18 +13,21 @@
                 <p>Veuillez vous connecter </p>
                 <div>
                     <p-button severity="info"  >
-                        <a routerLink="inscription">Inscription</a>
+                        <a routerLink="/inscription">Inscription</a>
                     </p-button>
                     <p-button>
-                        <a class="connex" routerLink="connexion">Connexion</a>
+                        <a class="connex" routerLink="/connexion">Connexion</a>
                     </p-button>
                 
                 </div>
             </div>
         }
         @else {
+            <section></section>
             <div> 
+                <p>Bonjour {{authServ.Prenom}} {{authServ.Nom}}</p>
                 <p>Vous êtes connecté</p>
+
             </div>
         }
     </div>

@@ -8,9 +8,18 @@ export interface ConnexionRequete {
     "motDePasse": string
 }
 
-export interface AccessToken {
-    "accessToken" : string,
-    "expiresAt" :string
+export interface UtilisateurInfo extends TokenInfo {
+    "id": string,
+    "nom": string,
+    "prenom": string,
+    "email": string,
+    "role": string,
+    
+}
+
+export interface TokenInfo{
+    "token": string,
+    "refreshToken" : string
 }
 
 

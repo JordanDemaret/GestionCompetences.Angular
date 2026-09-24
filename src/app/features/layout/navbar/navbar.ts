@@ -40,6 +40,11 @@ export class Navbar {
           styleClass : url === '/accueil' ? 'active-item' : ''
         },
         {
+          label : 'Catégorie',
+          routerLink : "/categorie", 
+          icon :'pi pi-align-justify'
+        },
+        {
           label : "Inscription",
           routerLink : '/inscription',
           visible : !isLogin,
