@@ -1,0 +1,19 @@
+
+.layout-container {
+  display: flex;
+  min-height: calc(100vh - 60px); 
+}
+.sidebar-section {
+  width: 280px;            
+  flex-shrink: 0;        
+  border-right: 1px solid #e5e7eb; 
+  background-color: #ffffff;
+}
+
+
+.content-section {
+  flex: 1;                
+  padding: 1.5rem;         
+  background-color: #f8fafc; 
+  overflow-y: auto;       
+}

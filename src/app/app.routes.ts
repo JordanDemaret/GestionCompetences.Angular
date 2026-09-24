@@ -24,7 +24,7 @@ export const routes: Routes = [
         canActivate : [guestGuard]
     },
     {
-        path : "categorie",
+        path : "categories",
         loadComponent : () => import('./features/competence/categorie/categorie').then(f => f.Categorie )
     },
 
