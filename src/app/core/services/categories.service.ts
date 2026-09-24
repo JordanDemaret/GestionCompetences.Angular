@@ -13,4 +13,12 @@ export class CategoriesService {
     getAllCategorie () : Observable<CategorieModel[]> {
         return this.http.get<CategorieModel[]>(this.UrlBase)
     }
+
+    getPostCategorie (nonString : string) : Observable<CategorieModel> {
+        return this.http.post<CategorieModel>(this.UrlBase,{nom: nonString})
+    }
+
+    getPutCategorie (categorie : CategorieModel) : Observable<unknown> {
+        return this.http.put(this.UrlBase,categorie)
+    }
 }
