@@ -1,0 +1,28 @@
+<table class="table">
+    <thead >
+    <tr class="thead">
+        <th>Nom</th>
+        <th>Note</th>
+        <th>Date</th>
+        <th>Visibilité</th>
+        <th>Statut</th>
+        <th>Catégorie</th>
+        <th>Niveau</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (c of competenceList(); track $index) 
+    {
+        <tr class="tbody-row">
+            <td>{{c.nom}}</td>
+             <td>{{c.note}}</td>
+            <td>{{c.dateDeDebut | date:'dd/MM/yyyy'}}</td>
+            <td>{{c.visibilite | visibilite}}</td>
+            <td>{{c.statut | statut}}</td>
+            <td>{{c.categorie}}</td>
+            <td>{{c.niveau}}</td>
+        </tr>
+    }
+</tbody>
+
+</table>

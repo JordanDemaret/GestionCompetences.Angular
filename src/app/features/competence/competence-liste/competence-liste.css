@@ -1,0 +1,33 @@
+.table{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
+}
+
+table thead, 
+.table tbody {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tbody-row{
+    background-color: #e6edf3;
+    
+}
+
+.tbody-row,
+.thead{
+    display: flex;
+    width: 100%;
+}
+
+.thead th, 
+.tbody-row td {
+    flex: 1;
+    text-align: left;
+    padding: 8px;
+}
