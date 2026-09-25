@@ -1,28 +1,42 @@
 <table class="table">
     <thead >
     <tr class="thead">
+        <th>#</th>
         <th>Nom</th>
         <th>Note</th>
-        <th>Date</th>
-        <th>Visibilité</th>
-        <th>Statut</th>
+        <th class="col">Date</th>
+        <th class="col">Visibilité</th>
+        <th class="col">Statut</th>
         <th>Catégorie</th>
-        <th>Niveau</th>
+        <th class="col">Niveau</th>
+        <th class="col"></th>
     </tr>
     </thead>
     <tbody>
     @for (c of competenceList(); track $index) 
     {
         <tr class="tbody-row">
+            <td>1</td>
             <td>{{c.nom}}</td>
-             <td>{{c.note}}</td>
+            <td class="note-cell" (click)="ouvriNote(c.note)">{{c.note}}</td>
             <td>{{c.dateDeDebut | date:'dd/MM/yyyy'}}</td>
             <td>{{c.visibilite | visibilite}}</td>
             <td>{{c.statut | statut}}</td>
             <td>{{c.categorie}}</td>
             <td>{{c.niveau}}</td>
+            <td>MODIFIER</td>
         </tr>
     }
 </tbody>
-
 </table>
+
+<p-dialog
+    [(visible)]="displayNoteDialog"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+     [style]="{ width: '50rem' }"
+    header="Note :">
+    <p>
+        {{selectedNote}}
+    </p>
+</p-dialog>

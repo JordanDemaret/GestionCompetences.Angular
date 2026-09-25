@@ -4,9 +4,11 @@ import { CompetenceModel } from '../../../core/models/competence.model';
 import { DatePipe } from '@angular/common';
 import { StatutPipe } from '../../../shared/pipes/statut-pipe';
 import { VisibilitePipe } from '../../../shared/pipes/visibilite-pipe';
+import { not } from 'rxjs/internal/util/not';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
-  imports: [DatePipe, StatutPipe, VisibilitePipe],
+  imports: [DatePipe, StatutPipe, VisibilitePipe, DialogModule],
   selector: 'app-competence-liste',
   styleUrl: './competence-liste.css',
   templateUrl: './competence-liste.html',
@@ -14,8 +16,10 @@ import { VisibilitePipe } from '../../../shared/pipes/visibilite-pipe';
 export class CompetenceListe implements OnInit{
 
   readonly competenceServ = inject(CompetenceService)
-
   public competenceList = signal<CompetenceModel[]>([])
+
+  displayNoteDialog: boolean = false;
+  selectedNote: string = '';
   
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({
@@ -23,6 +27,14 @@ export class CompetenceListe implements OnInit{
         this.competenceList.set(competences)
       } 
     })
+  }
+
+  ouvriNote(note : string|null){
+    if (note)
+    {
+      this.selectedNote = note
+      this.displayNoteDialog =true
+    }
   }
 
 }
