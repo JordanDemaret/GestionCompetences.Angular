@@ -17,17 +17,15 @@ export const routes: Routes = [
         loadComponent : () => import('./features/auth/inscription/inscription').then(f => f.Inscription),
         canActivate : [guestGuard]
     },
-    
     {
         path : 'connexion',
         loadComponent : () => import('./features/auth/connexion/connexion').then(f => f.Connexion),
         canActivate : [guestGuard]
     },
     {
-        path : "categories",
-        loadComponent : () => import('./features/competence/categorie/categorie').then(f => f.Categorie )
+        path :'competence',
+        loadChildren : () => import('./features/competence/competence.routes').then( x => x.routes)
     },
-
     {
         path : "**",
         redirectTo : "accueil"
