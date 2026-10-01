@@ -17,4 +17,8 @@ export class CompetenceService {
   getAllCompetence () : Observable<CompetenceModel[]> {
     return this.http.get<CompetenceModel[]>(`${this.UrlBase}/${this.auth.Id}`);
   }
+
+  PostCompetence (newCompetence : CompetenceModel) : Observable<unknown> {
+    return this.http.post<CompetenceModel>(this.UrlBase, newCompetence)
+  }
 }

@@ -1,3 +1,9 @@
+
+<p-button (onClick)="addCompetence()" >
+    Ajouter des compétence
+</p-button>
+
+<div>
 <table class="table">
     <thead >
     <tr class="thead">
@@ -30,6 +36,9 @@
 </tbody>
 </table>
 
+</div>
+
+
 <p-dialog
     [(visible)]="displayNoteDialog"
     [modal]="true"
@@ -39,4 +48,18 @@
     <p>
         {{selectedNote}}
     </p>
+</p-dialog>
+
+<p-dialog 
+    [(visible)]="ajouterCompetence"
+    header="Ajouter compétence"
+    [modal]="true"
+    [style]="{ width: '20vw', height : '50vw'  }">
+    <app-ajouter-competence
+        [categorieList]="categorieList()"
+        [niveauList]="niveauList()"
+        (sauvegarder)="postCompetence($event)"
+        (annuler)="ajouterCompetence= false"
+    >
+    </app-ajouter-competence>
 </p-dialog>
