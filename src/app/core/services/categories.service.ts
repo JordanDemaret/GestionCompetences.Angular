@@ -8,7 +8,7 @@ import {CategorieModel } from '../models/categorie.model';
 export class CategoriesService {
 
     private readonly http = inject(HttpClient)
-    private readonly UrlBase = environment.apiUrl + '/competence'
+    private readonly UrlBase = environment.apiUrl + '/categorie'
 
     getAllCategorie () : Observable<CategorieModel[]> {
         return this.http.get<CategorieModel[]>(this.UrlBase)

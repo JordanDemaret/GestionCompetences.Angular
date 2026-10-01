@@ -9,7 +9,7 @@ import { CategorieAjouter } from './categorie-ajouter/categorie-ajouter';
 import { CategorieModifier } from './categorie-modifier/categorie-modifier';
 
 @Component({
-  imports: [TableModule, ButtonModule, RouterLink, DialogModule, CategorieAjouter, CategorieModifier],
+  imports: [TableModule, ButtonModule, DialogModule, CategorieAjouter, CategorieModifier],
   selector: 'app-categorie',
   styleUrl: './categorie.css',
   templateUrl: './categorie.html',

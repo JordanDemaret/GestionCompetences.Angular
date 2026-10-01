@@ -16,14 +16,14 @@
     @for (c of competenceList(); track $index) 
     {
         <tr class="tbody-row">
-            <td>1</td>
+            <td>{{c.position}}</td>
             <td>{{c.nom}}</td>
             <td class="note-cell" (click)="ouvriNote(c.note)">{{c.note}}</td>
             <td>{{c.dateDeDebut | date:'dd/MM/yyyy'}}</td>
             <td>{{c.visibilite | visibilite}}</td>
             <td>{{c.statut | statut}}</td>
-            <td>{{c.categorie}}</td>
-            <td>{{c.niveau}}</td>
+            <td>{{c.categorieNom}}</td>
+            <td>{{c.niveauLibelle}}</td>
             <td>MODIFIER</td>
         </tr>
     }

@@ -63,6 +63,10 @@ export class AuthService {
         return this.tokens()?.prenom
     }
 
+    get Id(){
+        return this.tokens()?.id;
+    }
+
 
 }
 

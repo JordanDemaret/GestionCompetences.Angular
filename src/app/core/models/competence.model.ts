@@ -17,17 +17,12 @@ export interface CompetenceModel{
     dateDeDebut : Date|string;
     visibilite : VisibiliteEnum;
     statut : StatutEnum;
-    
     categorieId : string,
-    categorie : string,
+    categorieNom : string,
     niveauId : string,
-    niveau : string,
+    niveauLibelle : string,
+    position: number;
     
-    //utilisateurId : string;
     //certificatId : string| null ;
-    //lien : string|null, 
-    //position: number;
-    //nomGroupe: string;
-
 }
 
