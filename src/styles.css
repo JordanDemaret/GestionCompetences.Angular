@@ -45,3 +45,15 @@ h1{
   font-size: 1.4rem  !important;
   color: #666;
 }
+
+
+.form-group-col{
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 0.5rem;
+}
+
+.form-group-col label {
+    margin-bottom: 0.5rem; 
+    font-weight: 500;      
+}

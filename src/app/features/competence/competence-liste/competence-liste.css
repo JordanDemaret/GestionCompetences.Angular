@@ -49,6 +49,17 @@ table thead,
   color: #2563eb; /* Une couleur légèrement bleutée pour indiquer le clic */
 }
 
+.text{
+  text-align: center; 
+}
+
+.deleLog{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2px;
+}
+
 .note-cell:hover {
   text-decoration: underline;
 }

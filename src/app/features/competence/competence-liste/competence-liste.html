@@ -1,54 +1,58 @@
 
-<p-button (onClick)="addCompetence()" >
+<p-button (onClick)="ouvrirAjout()" >
     Ajouter des compétence
 </p-button>
 
 <div>
 <table class="table">
     <thead >
-    <tr class="thead">
-        <th>#</th>
-        <th>Nom</th>
-        <th>Note</th>
-        <th class="col">Date</th>
-        <th class="col">Visibilité</th>
-        <th class="col">Statut</th>
-        <th>Catégorie</th>
-        <th class="col">Niveau</th>
-        <th class="col"></th>
-    </tr>
+        <tr class="thead">
+            <th>#</th>
+            <th>Nom</th>
+            <th>Note</th>
+            <th class="col">Date</th>
+            <th class="col">Visibilité</th>
+            <th class="col">Statut</th>
+            <th>Catégorie</th>
+            <th class="col">Niveau</th>
+            <th class="col"></th>
+        </tr>
     </thead>
     <tbody>
-    @for (c of competenceList(); track $index) 
-    {
-        <tr class="tbody-row">
-            <td>{{c.position}}</td>
-            <td>{{c.nom}}</td>
-            <td class="note-cell" (click)="ouvriNote(c.note)">{{c.note}}</td>
-            <td>{{c.dateDeDebut | date:'dd/MM/yyyy'}}</td>
-            <td>{{c.visibilite | visibilite}}</td>
-            <td>{{c.statut | statut}}</td>
-            <td>{{c.categorieNom}}</td>
-            <td>{{c.niveauLibelle}}</td>
-            <td>
-                <button (click)="moddif = true; competenceSelect.set(c)")>🖊</button>
-                <button (click)="supprimerCompetence = true; competenceSelect.set(c)">🗑</button>
-            </td>
-        </tr>
-    }
-</tbody>
+        @for (c of competenceList(); track $index) 
+        {
+            <tr class="tbody-row">
+                <td>{{c.position}}</td>
+                <td>{{c.nom}}</td>
+                <td class="note-cell" (click)="ouvrirNote(c.note)">{{c.note}}</td>
+                <td>{{c.dateDeDebut | date:'dd/MM/yyyy'}}</td>
+                <td>{{c.visibilite | visibilite}}</td>
+                <td>{{c.statut | statut}}</td>
+                <td>{{c.categorieNom}}</td>
+                <td>{{c.niveauLibelle}}</td>
+                <td>
+                    <p-button (click)="ouvrirModification(c)" icon="pi pi-pencil" 
+                        styleClass="p-button-text"></p-button>
+                    <p-button (click)="ouvrirSuppression(c)" 
+                        icon="pi pi-trash" 
+                        styleClass="p-button-text"></p-button>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
 </div>
 
 
 <p-dialog
-    [(visible)]="displayNoteDialog"
+    [(visible)]="displayNoteDialog"    
+    header="Note :"
     [modal]="true"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-     [style]="{ width: '50rem' }"
-    header="Note :">
-    <p>
+    [draggable]="false"
+
+    [style]="{ width: '50rem' }">
+    <p class="text">
         {{selectedNote}}
     </p>
 </p-dialog>
@@ -57,7 +61,9 @@
     [(visible)]="ajouterCompetence"
     header="Ajouter compétence"
     [modal]="true"
-    [style]="{ width: '20vw', height : '40vw'  }">
+    [draggable]="false"
+    
+    [style]="{ width: '30vw', height : '48vw'  }">
     <app-ajouter-competence
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
@@ -68,10 +74,14 @@
 </p-dialog>
 
 <p-dialog 
-    [visible]="moddif && competenceSelect() !== null"
-    header="Ajouter compétence"
+    [(visible)]="moddif"
+    header="Modification compétence"
     [modal]="true"
-    [style]="{ width: '20vw', height : '40vw'  }">
+    [dismissableMask]="true"
+    [draggable]="false"
+    
+    [style]="{ width: '30vw', height : '48vw'  }"
+    (onHide)="competenceSelect.set(null)">
     <app-moddifier-competence
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
@@ -83,19 +93,25 @@
 </p-dialog>
 
 <p-dialog 
-    [visible]="supprimerCompetence && competenceSelect() !== null"
+    [visible]="supprimerCompetence && competenceSelect() !==null"
+    header="Suppression de compétence :"
     [modal]="true"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-     [style]="{ width: '50rem' }"
-    header="Note :">
-    <p>Vous voulez supprimer la competence {{competenceSelect()?.nom}} </p>
-    <div>
-        <p-button (onClick)="DeleteCompetence()">
+    [draggable]="false"
+    
+    [style]="{ width: '40rem' }"
+    (onHide)="supprimerCompetence=false ;competenceSelect.set(null)">
+    <p class="text">Vous voulez supprimer la competence {{competenceSelect()?.nom}} </p>
+    <div class="deleLog"> 
+        <p-button 
+            severity="danger"
+            (onClick)="DeleteCompetence()">
             Oui
         </p-button>
-        <p-button (onClick)="supprimerCompetence = false; competenceSelect.set(null)">
+        <p-button 
+            severity="secondary"
+            (onClick)="supprimerCompetence = false; 
+            competenceSelect.set(null)">
             Non
         </p-button>
     </div>
-
 </p-dialog>

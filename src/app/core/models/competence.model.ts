@@ -1,7 +1,6 @@
 export enum VisibiliteEnum {
   Public = 0,
   Prive = 1
- 
 }
 
 export enum StatutEnum {

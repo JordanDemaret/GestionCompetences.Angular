@@ -56,7 +56,7 @@ export class CompetenceListe implements OnInit{
     })
   }
 
-  ouvriNote(note : string|null){
+  ouvrirNote(note : string|null){
     if (note)
     {
       this.selectedNote = note
@@ -64,8 +64,18 @@ export class CompetenceListe implements OnInit{
     }
   }
 
-  addCompetence () : void {
+  ouvrirAjout () : void {
     this.ajouterCompetence = true;
+  }
+
+  ouvrirModification (c : CompetenceModel) : void{
+    this.moddif = true; 
+    this.competenceSelect.set(c)
+  }
+  
+  ouvrirSuppression (c : CompetenceModel) : void{
+    this.supprimerCompetence = true; 
+    this.competenceSelect.set(c)
   }
 
   postCompetence(competence : CompetenceModel) {
@@ -99,11 +109,14 @@ export class CompetenceListe implements OnInit{
   }
 
   DeleteCompetence(){
-    this.competenceServ.deleteCompetence(this.competenceSelect()!.id).subscribe({
+    const currentSelected = this.competenceSelect();
+    if (!currentSelected) return;
+
+    this.competenceServ.deleteCompetence(currentSelected.id).subscribe({
       next : () => {
-        const pos = this.competenceSelect()!.position
-        this.competenceList.update(liste => liste.filter(c => c.id !== this.competenceSelect()!.id))
-        this.competenceList.update(liste => liste.map(c => c.position > pos? {...c, position : c.position--} :c ))
+        const pos = currentSelected.position
+        this.competenceList.update(liste => liste.filter(c => c.id !== currentSelected.id)
+                                      .map(c => c.position > pos? {...c, position : c.position-1} :c ))
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);
