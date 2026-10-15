@@ -30,7 +30,10 @@
             <td>{{c.statut | statut}}</td>
             <td>{{c.categorieNom}}</td>
             <td>{{c.niveauLibelle}}</td>
-            <td>MODIFIER</td>
+            <td>
+                <button (click)="moddif = true; competenceSelect.set(c)")>🖊</button>
+                <button (click)="supprimerCompetence = true; competenceSelect.set(c)">🗑</button>
+            </td>
         </tr>
     }
 </tbody>
@@ -54,7 +57,7 @@
     [(visible)]="ajouterCompetence"
     header="Ajouter compétence"
     [modal]="true"
-    [style]="{ width: '20vw', height : '50vw'  }">
+    [style]="{ width: '20vw', height : '40vw'  }">
     <app-ajouter-competence
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
@@ -62,4 +65,37 @@
         (annuler)="ajouterCompetence= false"
     >
     </app-ajouter-competence>
+</p-dialog>
+
+<p-dialog 
+    [visible]="moddif && competenceSelect() !== null"
+    header="Ajouter compétence"
+    [modal]="true"
+    [style]="{ width: '20vw', height : '40vw'  }">
+    <app-moddifier-competence
+        [categorieList]="categorieList()"
+        [niveauList]="niveauList()"
+        [competence]="competenceSelect()!"
+        (sauvegarder)="PutCompetence($event)"
+        (annuler)="moddif= false"
+    >
+    </app-moddifier-competence>
+</p-dialog>
+
+<p-dialog 
+    [visible]="supprimerCompetence && competenceSelect() !== null"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+     [style]="{ width: '50rem' }"
+    header="Note :">
+    <p>Vous voulez supprimer la competence {{competenceSelect()?.nom}} </p>
+    <div>
+        <p-button (onClick)="DeleteCompetence()">
+            Oui
+        </p-button>
+        <p-button (onClick)="supprimerCompetence = false; competenceSelect.set(null)">
+            Non
+        </p-button>
+    </div>
+
 </p-dialog>

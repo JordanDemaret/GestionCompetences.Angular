@@ -28,7 +28,7 @@ export class CategorieModifier {
 
 
   readonly form : FormGroup = inject(FormBuilder).group({
-    Nom : [[""], [Validators.required, Validators.maxLength(150)]]
+    Nom : ["", [Validators.required, Validators.maxLength(150)]]
   })
 
   

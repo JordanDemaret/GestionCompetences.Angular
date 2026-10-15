@@ -35,7 +35,7 @@ export class AjouterCompetence {
   readonly form = inject(FormBuilder).group({
     nom : ["", [Validators.required, Validators.maxLength(200)]],
     note : ["" , [Validators.maxLength(400)]],
-    dateDeDebut : ["", [Validators.required]],
+    dateDeDebut : [new Date(), [Validators.required]],
     visibilite: [VisibiliteEnum.Public,[Validators.required]],
     statut: [StatutEnum.AAcquerir,[Validators.required]],
     categorieId: [, [Validators.required]],

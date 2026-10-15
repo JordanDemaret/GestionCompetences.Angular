@@ -14,7 +14,7 @@ export interface CompetenceModel{
     id : string;
     nom : string;
     note : string|null;
-    dateDeDebut : Date|string;
+    dateDeDebut : Date;
     visibilite : VisibiliteEnum;
     statut : StatutEnum;
     categorieId : string,

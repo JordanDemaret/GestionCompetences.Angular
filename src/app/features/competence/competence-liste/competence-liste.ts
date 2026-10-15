@@ -7,14 +7,14 @@ import { VisibilitePipe } from '../../../shared/pipes/visibilite-pipe';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { AjouterCompetence } from './ajouter-competence/ajouter-competence';
-import { Categorie } from '../categorie/categorie';
 import { CategorieModel } from '../../../core/models/categorie.model';
 import { NiveauModel } from '../../../core/models/niveaux.model';
 import { CategoriesService } from '../../../core/services/categories.service';
 import { NiveauService } from '../../../core/services/niveau.service';
+import { ModdifierCompetence } from './moddifier-competence/moddifier-competence';
 
 @Component({
-  imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence],
+  imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence, ModdifierCompetence],
   selector: 'app-competence-liste',
   styleUrl: './competence-liste.css',
   templateUrl: './competence-liste.html',
@@ -33,6 +33,10 @@ export class CompetenceListe implements OnInit{
   selectedNote: string = '';
 
   ajouterCompetence : boolean = false
+  moddif = false
+  supprimerCompetence : boolean = false
+
+  competenceSelect = signal<CompetenceModel|null>(null)
   
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({
@@ -65,9 +69,9 @@ export class CompetenceListe implements OnInit{
   }
 
   postCompetence(competence : CompetenceModel) {
-    this.competenceServ.PostCompetence(competence).subscribe({
-      next: () => {
-        this.competenceList.update(competences => [...competences, competence]);
+    this.competenceServ.postCompetence(competence).subscribe({
+      next: (comp : CompetenceModel) => {
+        this.competenceList.update(competences => [...competences, comp]);
         this.ajouterCompetence = false;
       },
       error: (err) => {
@@ -75,6 +79,38 @@ export class CompetenceListe implements OnInit{
       },
       complete: () => {
         this.ajouterCompetence = false;
+      }
+    })
+  }
+
+  PutCompetence(competence : CompetenceModel) {
+    this.competenceServ.putCompetence(competence).subscribe({
+      next: () => {
+        this.competenceList.update(liste => liste.map(c => c.id === competence.id? competence : c ) );
+        this.moddif = false;
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'enregistrement en BDD :', err);
+      },
+      complete: () => {
+        this.moddif = false;
+      }
+    })
+  }
+
+  DeleteCompetence(){
+    this.competenceServ.deleteCompetence(this.competenceSelect()!.id).subscribe({
+      next : () => {
+        const pos = this.competenceSelect()!.position
+        this.competenceList.update(liste => liste.filter(c => c.id !== this.competenceSelect()!.id))
+        this.competenceList.update(liste => liste.map(c => c.position > pos? {...c, position : c.position--} :c ))
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'enregistrement en BDD :', err);
+      },
+      complete : () => {
+        this.supprimerCompetence = false; 
+        this.competenceSelect.set(null)
       }
     })
   }

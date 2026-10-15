@@ -14,11 +14,19 @@ export class CompetenceService {
   private readonly auth = inject(AuthService)
 
   
-  getAllCompetence () : Observable<CompetenceModel[]> {
+  getAllCompetence() : Observable<CompetenceModel[]> {
     return this.http.get<CompetenceModel[]>(`${this.UrlBase}/${this.auth.Id}`);
   }
 
-  PostCompetence (newCompetence : CompetenceModel) : Observable<unknown> {
+  postCompetence(newCompetence : CompetenceModel) : Observable<CompetenceModel> {
     return this.http.post<CompetenceModel>(this.UrlBase, newCompetence)
+  }
+
+  putCompetence(moddifComposant : CompetenceModel) : Observable<unknown>{
+    return this.http.put(this.UrlBase, moddifComposant)
+  }
+
+  deleteCompetence(id : string) : Observable<unknown>{
+    return this.http.delete(`${this.UrlBase}/${id}`)
   }
 }
