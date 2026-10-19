@@ -1,0 +1,14 @@
+.divAccueil{
+    display: flex;
+    align-items: center ;
+    justify-content: center;
+    margin-top: 2rem ;
+}
+
+.nonCo {
+    display: flex;
+    flex-direction: column;
+}
+.nonCo > *{
+    margin-top: 10px;
+}

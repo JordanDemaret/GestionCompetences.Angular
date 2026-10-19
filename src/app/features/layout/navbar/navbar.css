@@ -1,0 +1,50 @@
+p-menubar {
+  background: var(--color-bg);
+  border: 0.5pt solid var(--color-silver);
+  width: 100%; 
+  display: block;
+}
+
+:host ::ng-deep .p-menubar .p-icon,
+:host ::ng-deep .p-menubar .p-menuitem-icon,
+:host ::ng-deep .p-menubar .pi {
+  color: #090000 !important;
+  font-size: 1.4rem !important;
+}
+
+:host ::ng-deep .active-item {
+  background: white;
+  border-radius: 4px;
+}
+
+
+@media screen and (min-width: 961px) {
+  :host ::ng-deep .p-menubar .p-menubar-root-list,
+  :host ::ng-deep .p-menubar .p-menubar-list {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center;
+  }
+
+  :host ::ng-deep .p-menubar .p-menubar-root-list > .push-right,
+  :host ::ng-deep .p-menubar .p-menubar-list > .push-right {
+    margin-left: auto !important;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  :host ::ng-deep .p-menubar {
+    position: relative; 
+  }
+
+  :host ::ng-deep .p-menubar .p-menubar-root-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+    background: var(--color-bg, #ffffff);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 0 0 8px 8px;
+  }
+}

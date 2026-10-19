@@ -1,3 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+
+
+:root {
+    --color-bg :  #709df8;
+    --color-silver :  #C0C0C0;
+    --color-lien : #0d56e8;
+}
+h1{
+  font-size: 20px; font-weight: 500;
+}
+
+
+
+.password-field {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.password-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 40px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pi {
+  font-size: 1.4rem  !important;
+  color: #666;
+}
+
+
+.form-group-col{
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 0.5rem;
+}
+
+.form-group-col label {
+    margin-bottom: 0.5rem; 
+    font-weight: 500;      
+}

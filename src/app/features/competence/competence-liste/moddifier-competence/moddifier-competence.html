@@ -1,0 +1,55 @@
+<form [formGroup]="form">
+    
+    <div  class="form-group-col">
+        <label for="Nom">Nom </label>
+        <input pInputText id="Nom" formControlName="nom">
+    </div>
+
+    <div  class="form-group-col">
+        <label for="Note">Note </label>
+        <input pInputText id="Note" formControlName="note">
+    </div>
+    
+    
+    <div  class="form-group-col">
+        <label for="Date">Date de début </label>
+        <p-date-picker id="Date" formControlName="dateDeDebut" dateFormat="dd/mm/yy"></p-date-picker>
+    </div>
+
+    <div  class="form-group-col">
+        <label for="visibilité">Visibilité </label>
+        <p-select id="visibilité" [options]="visibiliteOption" 
+           optionValue="value" optionLabel="label"
+           formControlName="visibilite"></p-select>
+    </div>
+    <div  class="form-group-col"> 
+        <label for="Statue">Statut </label>
+        <p-select id="Statut" [options]="statutOptions" 
+           optionValue="value" optionLabel="label"
+           formControlName="statut"></p-select>
+    </div>
+
+    <div  class="form-group-col"> 
+        <label for="categorie">Categorie </label>
+        <p-select id="categorie" [options]="categorieList()" 
+           optionValue="id" optionLabel="nom"
+           formControlName="categorieId"
+                  appendTo="body"></p-select>
+    </div>
+
+    <div  class="form-group-col"> 
+        <label for="Niveau">Niveau </label>
+        <p-select id="Niveau" [options]="niveauList()" 
+           optionValue="id" optionLabel="label"
+           formControlName="niveauId"
+           appendTo="body"></p-select>
+    </div>
+
+
+    <div>
+        <p-button label="Enregistrer" severity="success" (onClick)="onSave()"/>
+        <p-button label="Annuler" severity="secondary" (onClick)="onCancel()"/>
+          </div>
+
+
+</form>
