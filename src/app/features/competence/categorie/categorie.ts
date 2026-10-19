@@ -9,7 +9,7 @@ import { CategorieAjouter } from './categorie-ajouter/categorie-ajouter';
 import { CategorieModifier } from './categorie-modifier/categorie-modifier';
 
 @Component({
-  imports: [TableModule, ButtonModule, RouterLink, DialogModule, CategorieAjouter, CategorieModifier],
+  imports: [TableModule, ButtonModule, DialogModule, CategorieAjouter, CategorieModifier],
   selector: 'app-categorie',
   styleUrl: './categorie.css',
   templateUrl: './categorie.html',
@@ -38,16 +38,16 @@ export class Categorie implements OnInit  {
     })
   }
 
-  addCompetence () : void {
+  addCategorie () : void {
     this.veuxAjouter = true;
   }
 
-  modifCompetence (categorie : CategorieModel) : void {
+  modifCategorie (categorie : CategorieModel) : void {
     this.categorieCible = categorie;
     this.veuxModifier = true;
   }
 
-  postNouveauCompetence (nouvelleCat: { nom: string }) : void {
+  postNouveauCategorie (nouvelleCat: { nom: string }) : void {
     this.categorieServ.getPostCategorie(nouvelleCat.nom).subscribe({
       next: (categorie) =>{
         this.categorieList.update(list => [...list, categorie ])
@@ -61,7 +61,7 @@ export class Categorie implements OnInit  {
     })
   }
 
-  putNouveauCompetence (Cat: CategorieModel) : void {
+  putNouveauCategorie (Cat: CategorieModel) : void {
     this.categorieServ.getPutCategorie(Cat).subscribe({
       next: (categorie) =>{
         this.categorieList.update(list => list.map(c => c.id === Cat.id ? { ...c, nom: Cat.nom } : c))

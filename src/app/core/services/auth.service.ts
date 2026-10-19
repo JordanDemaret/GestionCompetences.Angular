@@ -51,7 +51,6 @@ export class AuthService {
     Deconnexion  () :void {
         this.tokens.set(null);
         sessionStorage.removeItem(STORAGE_KEY);
-        console.log("deco")
     }
 
     get Nom(){
@@ -61,6 +60,10 @@ export class AuthService {
 
     get Prenom(){
         return this.tokens()?.prenom
+    }
+
+    get Id(){
+        return this.tokens()?.id;
     }
 
 

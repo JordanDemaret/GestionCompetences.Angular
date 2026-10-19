@@ -30,8 +30,6 @@ export class Navbar {
 
       const isLogin = this.authService.isLogin();
       const url = this.currentUrl()
-      
-      console.log("modi")
       return [
         {
           label : 'Accueil',

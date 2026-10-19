@@ -14,20 +14,37 @@ import { AuthService } from '../../../core/services/auth.service';
 export class UtilisateurNavBar implements OnInit {
   
   readonly authServ = inject(AuthService);
-  //readonly visible: boolean = this.authServ.isLogin();
-
-
-
 
   menuItems: MenuItem[] = [];
 
   ngOnInit(): void {
     this.menuItems = [
       {
+        label: 'Compétence',
+        icon: 'pi pi-star',
+        routerLink: ['/competence']
+      },      
+      {
         label: 'Catégories',
         icon: 'pi pi-tags',
-        routerLink: ['/categories']
+        routerLink: ['/competence/categories']
       },
+      
+      
+      
+
+
+      {
+        label: 'Certificat',
+        icon: 'pi pi-graduation-cap',
+        routerLink: ['/competence/certificat']
+      },
+      {
+        label: 'stat',
+        icon: 'pi pi-chart-scatter',
+        routerLink: ['/competence/stat']
+      },
+
     ];
   }
 

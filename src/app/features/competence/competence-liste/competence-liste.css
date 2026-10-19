@@ -1,0 +1,76 @@
+.table{
+    flex-direction: column;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
+}
+
+.table th{
+    border: 1px solid #e2e8f0;
+}
+
+.table td {
+  white-space: nowrap;
+  vertical-align: middle;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+table thead, 
+.table tbody {
+    flex-direction: column;
+    width: 100%;
+}
+
+.tbody-row{
+    background-color: #e6edf3;
+    
+}
+
+.tbody-row,
+.thead{
+    width: 100%;
+}
+
+.thead th, 
+.tbody-row td {
+    flex: 1;
+    text-align: left;
+    padding: 8px;
+  text-align: center;
+}
+
+.note-cell {
+  max-width: 200px; /* Ajuste la largeur max selon tes besoins */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  color: #2563eb; /* Une couleur légèrement bleutée pour indiquer le clic */
+}
+
+.text{
+  text-align: center; 
+}
+
+.deleLog{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2px;
+}
+
+.note-cell:hover {
+  text-decoration: underline;
+}
+
+
+.tbody-row:hover {
+  background-color: #f8fafc;
+}
+
+
+.col { 
+    width: 100px;
+}
+

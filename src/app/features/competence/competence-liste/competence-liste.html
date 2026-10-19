@@ -1,0 +1,116 @@
+
+<p-button (onClick)="ouvrirAjout()" >
+    Ajouter des compétence
+</p-button>
+
+<div>
+<table class="table">
+    <thead >
+        <tr class="thead">
+            <th>#</th>
+            <th>Nom</th>
+            <th>Note</th>
+            <th class="col">Date</th>
+            <th class="col">Visibilité</th>
+            <th class="col">Statut</th>
+            <th>Catégorie</th>
+            <th class="col">Niveau</th>
+            <th class="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (c of competenceList(); track $index) 
+        {
+            <tr class="tbody-row">
+                <td>{{c.position}}</td>
+                <td>{{c.nom}}</td>
+                <td class="note-cell" (click)="ouvrirNote(c.note)">{{c.note}}</td>
+                <td>{{c.dateDeDebut | date:'dd/MM/yyyy'}}</td>
+                <td>{{c.visibilite | visibilite}}</td>
+                <td>{{c.statut | statut}}</td>
+                <td>{{c.categorieNom}}</td>
+                <td>{{c.niveauLibelle}}</td>
+                <td>
+                    <p-button (click)="ouvrirModification(c)" icon="pi pi-pencil" 
+                        styleClass="p-button-text"></p-button>
+                    <p-button (click)="ouvrirSuppression(c)" 
+                        icon="pi pi-trash" 
+                        styleClass="p-button-text"></p-button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+</div>
+
+
+<p-dialog
+    [(visible)]="displayNoteDialog"    
+    header="Note :"
+    [modal]="true"
+    [draggable]="false"
+
+    [style]="{ width: '50rem' }">
+    <p class="text">
+        {{selectedNote}}
+    </p>
+</p-dialog>
+
+<p-dialog 
+    [(visible)]="ajouterCompetence"
+    header="Ajouter compétence"
+    [modal]="true"
+    [draggable]="false"
+    
+    [style]="{ width: '30vw', height : '48vw'  }">
+    <app-ajouter-competence
+        [categorieList]="categorieList()"
+        [niveauList]="niveauList()"
+        (sauvegarder)="postCompetence($event)"
+        (annuler)="ajouterCompetence= false"
+    >
+    </app-ajouter-competence>
+</p-dialog>
+
+<p-dialog 
+    [(visible)]="moddif"
+    header="Modification compétence"
+    [modal]="true"
+    [dismissableMask]="true"
+    [draggable]="false"
+    
+    [style]="{ width: '30vw', height : '48vw'  }"
+    (onHide)="competenceSelect.set(null)">
+    <app-moddifier-competence
+        [categorieList]="categorieList()"
+        [niveauList]="niveauList()"
+        [competence]="competenceSelect()!"
+        (sauvegarder)="PutCompetence($event)"
+        (annuler)="moddif= false">
+    </app-moddifier-competence>
+</p-dialog>
+
+<p-dialog 
+    [visible]="supprimerCompetence && competenceSelect() !==null"
+    header="Suppression de compétence :"
+    [modal]="true"
+    [draggable]="false"
+    
+    [style]="{ width: '40rem' }"
+    (onHide)="supprimerCompetence=false ;competenceSelect.set(null)">
+    <p class="text">Vous voulez supprimer la competence {{competenceSelect()?.nom}} </p>
+    <div class="deleLog"> 
+        <p-button 
+            severity="danger"
+            (onClick)="DeleteCompetence()">
+            Oui
+        </p-button>
+        <p-button 
+            severity="secondary"
+            (onClick)="supprimerCompetence = false; 
+            competenceSelect.set(null)">
+            Non
+        </p-button>
+    </div>
+</p-dialog>
