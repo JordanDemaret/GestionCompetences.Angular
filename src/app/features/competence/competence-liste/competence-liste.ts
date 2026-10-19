@@ -97,7 +97,6 @@ export class CompetenceListe implements OnInit{
     this.competenceServ.putCompetence(competence).subscribe({
       next: () => {
         this.competenceList.update(liste => liste.map(c => c.id === competence.id? competence : c ) );
-        this.moddif = false;
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);

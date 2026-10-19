@@ -47,11 +47,14 @@ export class AjouterCompetence {
       this.form.markAllAsTouched();
       return;
     }
+    
+    const dateSelectionnee = new Date(this.form.controls["dateDeDebut"].value!);
+    dateSelectionnee.setHours(12, 0, 0, 0);
 
     const competence : CompetenceModel ={
       nom: this.form.controls["nom"].value!!,
       note : this.form.controls["note"].value ?? "",
-      dateDeDebut : this.form.controls["dateDeDebut"].value!!,
+      dateDeDebut : dateSelectionnee,
       visibilite: this.form.controls["visibilite"].value!!,
       statut: this.form.controls["statut"].value!!,
       categorieId: this.form.controls["categorieId"].value!!,

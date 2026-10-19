@@ -7,8 +7,6 @@ import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../../core/mo
 import { CategorieModel } from '../../../../core/models/categorie.model';
 import { NiveauModel } from '../../../../core/models/niveaux.model';
 import { ButtonModule } from 'primeng/button';
-import { from } from 'rxjs';
-import { Categorie } from '../../categorie/categorie';
 
 @Component({
   imports: [ReactiveFormsModule, FormsModule, InputText, DatePicker, Select, ButtonModule],
@@ -19,7 +17,7 @@ import { Categorie } from '../../categorie/categorie';
 export class ModdifierCompetence {
   categorieList = input<CategorieModel[]>([]);
   niveauList = input<NiveauModel[]>([]);
-  competence = input<CompetenceModel>();
+  competence = input.required<CompetenceModel>();
 
   visibiliteOption = [
     { value: VisibiliteEnum.Prive, label: "Privé"},
@@ -33,8 +31,6 @@ export class ModdifierCompetence {
 
   sauvegarder = output<CompetenceModel>();
   annuler =  output()
-
-
 
   readonly form = inject(FormBuilder).group({
     nom : ["", [Validators.required, Validators.maxLength(200)]],
@@ -67,17 +63,20 @@ export class ModdifierCompetence {
       return;
     }
 
+    const dateSelectionnee = new Date(this.form.controls["dateDeDebut"].value!);
+    dateSelectionnee.setHours(12, 0, 0, 0);
+
     const competence : CompetenceModel ={
       id : this.competence()!.id,
-      nom: this.form.controls["nom"].value!!,
+      nom: this.form.controls["nom"].value!,
       note : this.form.controls["note"].value ?? "",
-      dateDeDebut : this.form.controls["dateDeDebut"].value!!,
-      visibilite: this.form.controls["visibilite"].value!!,
-      statut: this.form.controls["statut"].value!!,
-      categorieId: this.form.controls["categorieId"].value!!,
-      niveauId: this.form.controls["niveauId"].value!!,      
-      categorieNom : "",
-      niveauLibelle : "",
+      dateDeDebut :dateSelectionnee,
+      visibilite: this.form.controls["visibilite"].value!,
+      statut: this.form.controls["statut"].value!,
+      categorieId: this.form.controls["categorieId"].value!,
+      niveauId: this.form.controls["niveauId"].value!,      
+      categorieNom : this.categorieList().find(c => c.id == this.form.controls["categorieId"].value!)?.nom ?? "",
+      niveauLibelle : this.niveauList().find(c => c.id == this.form.controls["niveauId"].value!)?.label ?? "",
       position : this.competence()!.position
 
     };
