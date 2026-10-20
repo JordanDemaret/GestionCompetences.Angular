@@ -66,6 +66,10 @@ export class AuthService {
         return this.tokens()?.id;
     }
 
+    get Role(){
+        return this.tokens()?.role;
+    }
+
 
 }
 
