@@ -3,7 +3,6 @@ import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../models/competenc
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { AuthService } from './auth.service';
 
 @Service()
 export class CompetenceService {
@@ -11,11 +10,9 @@ export class CompetenceService {
   private readonly http = inject(HttpClient)
   private readonly UrlBase = environment.apiUrl + "/competence"
 
-  private readonly auth = inject(AuthService)
 
-  
   getAllCompetence() : Observable<CompetenceModel[]> {
-    return this.http.get<CompetenceModel[]>(`${this.UrlBase}/${this.auth.Id}`);
+    return this.http.get<CompetenceModel[]>(this.UrlBase);
   }
 
   postCompetence(newCompetence : CompetenceModel) : Observable<CompetenceModel> {
