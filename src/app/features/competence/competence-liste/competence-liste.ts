@@ -82,7 +82,6 @@ export class CompetenceListe implements OnInit{
     this.competenceServ.postCompetence(competence).subscribe({
       next: (comp : CompetenceModel) => {
         this.competenceList.update(competences => [...competences, comp]);
-        this.ajouterCompetence = false;
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);

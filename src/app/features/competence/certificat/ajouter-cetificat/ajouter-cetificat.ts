@@ -1,13 +1,12 @@
 import { Component, inject, output } from '@angular/core';
-import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InputText } from 'primeng/inputtext';
 import { DatePicker } from 'primeng/datepicker';
-import { InputNumber } from 'primeng/inputnumber';
 import { Button } from 'primeng/button';
 import { CertificatModel } from '../../../../core/models/certificat.model';
 
 @Component({
-  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, InputText, DatePicker, Button],
+  imports: [ReactiveFormsModule, InputText, DatePicker, Button],
   selector: 'app-ajouter-cetificat',
   styleUrl: './ajouter-cetificat.css',
   templateUrl: './ajouter-cetificat.html',
@@ -39,7 +38,6 @@ export class AjouterCetificat {
       codeCertificat: this.form.controls["codeCertificat"].value!,
       editeur : this.form.controls["editeur"].value?? "",
       dateObtention : dateSelectionnee,
-      utilisateurId : "",
       nombreDeCompetencesLiees : 0,
       id : ""
     }

@@ -18,5 +18,14 @@ export class CertificatServices {
         return this.http.post<CertificatModel>(this.UrlBase,nouveauCertificat)
     }
 
+    putCertificat(moddifCertificat : CertificatModel) : Observable<unknown>{
+        return this.http.put(this.UrlBase, moddifCertificat)
+    }
+    
+    
+    deleteCertificat(id : string) : Observable<unknown>{
+        return this.http.delete(`${this.UrlBase}/${id}`)
+    }
+
 
 }
