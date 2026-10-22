@@ -1,0 +1,30 @@
+<form [formGroup]="form">
+
+    <div>
+        <label for="nomCertificat">Nom du Certificat</label>
+        <input pInputText id="nomCertificat" formControlName="nomCertificat">
+    </div>
+
+    <div>
+        <label for="codeCertificat">Code du Certificat</label>
+        <input pInputText id="codeCertificat" formControlName="codeCertificat">
+    </div>
+    
+    <div>
+        <label for="editeur">Éditeur</label>
+        <input pInputText id="editeur" formControlName="editeur">
+    </div>
+
+    <div>
+        <label for="dateObtention">Date d'obtention</label>
+        <p-date-picker id="dateObtention" formControlName="dateObtention" dateFormat="dd/mm/yy"></p-date-picker>
+    </div>
+
+
+    <div>
+        <p-button label="Enregistrer" severity="success" (onClick)="onSave()"/>
+
+        <p-button label="Annuler" severity="secondary" (onClick)="onCancel()"/>
+    </div>
+
+</form>

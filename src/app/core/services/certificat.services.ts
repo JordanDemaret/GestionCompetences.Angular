@@ -13,4 +13,10 @@ export class CertificatServices {
     getAllCertificats() : Observable<CertificatModel[]>{
         return this.http.get<CertificatModel[]>(this.UrlBase);
     }
+
+    postCertificat(nouveauCertificat : CertificatModel) : Observable<CertificatModel>{
+        return this.http.post<CertificatModel>(this.UrlBase,nouveauCertificat)
+    }
+
+
 }

@@ -14,11 +14,11 @@ export class CategoriesService {
         return this.http.get<CategorieModel[]>(this.UrlBase)
     }
 
-    getPostCategorie (nonString : string) : Observable<CategorieModel> {
+    postCategorie (nonString : string) : Observable<CategorieModel> {
         return this.http.post<CategorieModel>(this.UrlBase,{nom: nonString})
     }
 
-    getPutCategorie (categorie : CategorieModel) : Observable<unknown> {
+    putCategorie (categorie : CategorieModel) : Observable<unknown> {
         return this.http.put(this.UrlBase,categorie)
     }
 }

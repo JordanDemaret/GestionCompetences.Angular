@@ -49,7 +49,7 @@ export class AjouterCompetence {
     }
     
     const dateSelectionnee = new Date(this.form.controls["dateDeDebut"].value!);
-    dateSelectionnee.setHours(12, 0, 0, 0);
+    dateSelectionnee.setHours(12);
 
     const competence : CompetenceModel ={
       nom: this.form.controls["nom"].value!!,
