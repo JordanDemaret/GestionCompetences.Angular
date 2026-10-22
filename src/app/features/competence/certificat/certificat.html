@@ -1,0 +1,26 @@
+<p>certificat works!</p>
+
+<p-table [value]="certificatListe()">
+    
+    <ng-template #header>
+        <tr>
+            <th>Nom</th>
+            <th>Code</th>
+            <th>Editeur</th>
+            <th>Date D'obtention</th>
+            <th>Nombre de Compétence liée</th>
+        </tr>
+    </ng-template >
+
+    <ng-template #body let-cer>
+        <tr>
+            <td>{{cer.nomCertificat}}</td>
+            <td>{{cer.codeCertificat}}</td>
+            <td>{{cer.editeur}}</td>
+            <td>{{cer.dateObtention}}</td>
+            <td>{{cer.nombreDeCompetencesLiees}}</td>
+            
+        </tr>
+    </ng-template>
+
+</p-table>

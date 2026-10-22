@@ -77,7 +77,10 @@ export class ModdifierCompetence {
       niveauId: this.form.controls["niveauId"].value!,      
       categorieNom : this.categorieList().find(c => c.id == this.form.controls["categorieId"].value!)?.nom ?? "",
       niveauLibelle : this.niveauList().find(c => c.id == this.form.controls["niveauId"].value!)?.label ?? "",
-      position : this.competence()!.position
+      position : this.competence()!.position,
+
+      certificatNom : null,
+      certificatId : ""
 
     };
     this.sauvegarder.emit(competence);

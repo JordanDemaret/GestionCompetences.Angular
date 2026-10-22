@@ -15,6 +15,7 @@
             <th class="col">Statut</th>
             <th>Catégorie</th>
             <th class="col">Niveau</th>
+            <th class="col">Certificat </th>
             <th class="col"></th>
         </tr>
     </thead>
@@ -30,6 +31,7 @@
                 <td>{{c.statut | statut}}</td>
                 <td>{{c.categorieNom}}</td>
                 <td>{{c.niveauLibelle}}</td>
+                <td>{{c.certificatNom}}</td>
                 <td>
                     <p-button (click)="ouvrirModification(c)" icon="pi pi-pencil" 
                         styleClass="p-button-text"></p-button>

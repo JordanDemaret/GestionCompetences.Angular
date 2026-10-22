@@ -63,7 +63,9 @@ export class AjouterCompetence {
       id : "",
       categorieNom : "",
       niveauLibelle : "",
-      position : 0
+      position : 0,
+      certificatNom : "",
+      certificatId : ""
 
     };
     this.sauvegarder.emit(competence);
