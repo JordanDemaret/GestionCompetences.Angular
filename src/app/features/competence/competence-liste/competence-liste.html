@@ -31,7 +31,7 @@
                 <td>{{c.statut | statut}}</td>
                 <td>{{c.categorieNom}}</td>
                 <td>{{c.niveauLibelle}}</td>
-                <td>{{c.certificatNom}}</td>
+                <td>{{c.nomCertificat}}</td>
                 <td>
                     <p-button (click)="ouvrirModification(c)" icon="pi pi-pencil" 
                         styleClass="p-button-text"></p-button>
@@ -69,6 +69,7 @@
     <app-ajouter-competence
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
+        [certificatList]="certificatListe()"
         (sauvegarder)="postCompetence($event)"
         (annuler)="ajouterCompetence= false"
     >
@@ -87,6 +88,7 @@
     <app-moddifier-competence
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
+        [certificatList]="certificatListe()"
         [competence]="competenceSelect()!"
         (sauvegarder)="PutCompetence($event)"
         (annuler)="moddif= false">

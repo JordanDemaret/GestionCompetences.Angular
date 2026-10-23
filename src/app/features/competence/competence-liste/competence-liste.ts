@@ -12,6 +12,8 @@ import { NiveauModel } from '../../../core/models/niveaux.model';
 import { CategoriesService } from '../../../core/services/categories.service';
 import { NiveauService } from '../../../core/services/niveau.service';
 import { ModdifierCompetence } from './moddifier-competence/moddifier-competence';
+import { CertificatServices } from '../../../core/services/certificat.services';
+import { CertificatModel } from '../../../core/models/certificat.model';
 
 @Component({
   imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence, ModdifierCompetence],
@@ -24,10 +26,12 @@ export class CompetenceListe implements OnInit{
   readonly competenceServ = inject(CompetenceService)
   readonly categorieServ = inject(CategoriesService)
   readonly niveauServ = inject(NiveauService)
+  readonly certificatServ = inject(CertificatServices)
 
   public competenceList = signal<CompetenceModel[]>([])
   public categorieList = signal<CategorieModel[]>([]) 
   public niveauList = signal<NiveauModel[]>([])
+  public certificatListe = signal<CertificatModel[]>([])
 
   displayNoteDialog: boolean = false;
   selectedNote: string = '';
@@ -52,6 +56,11 @@ export class CompetenceListe implements OnInit{
     this.niveauServ.getAllNiveau().subscribe({
       next : (niveau : NiveauModel[]) => {
         this.niveauList.set(niveau)
+      }
+    })
+    this.certificatServ.getAllCertificats().subscribe({
+      next : (certificat : CertificatModel[])  => {
+        this.certificatListe.set(certificat)
       }
     })
   }
