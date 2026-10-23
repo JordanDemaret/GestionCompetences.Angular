@@ -7,6 +7,7 @@ import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../../core/mo
 import { CategorieModel } from '../../../../core/models/categorie.model';
 import { NiveauModel } from '../../../../core/models/niveaux.model';
 import { ButtonModule } from 'primeng/button';
+import { CertificatModel } from '../../../../core/models/certificat.model';
 
 @Component({
   imports: [ReactiveFormsModule, FormsModule, InputText, DatePicker, Select, ButtonModule],
@@ -18,6 +19,7 @@ export class AjouterCompetence {
 
   categorieList = input<CategorieModel[]>([]) 
   niveauList = input<NiveauModel[]>([])
+  certificatList = input<CertificatModel[]>([])
 
   visibiliteOption = [
     { value: VisibiliteEnum.Prive, label: "Privé"},
@@ -39,7 +41,8 @@ export class AjouterCompetence {
     visibilite: [VisibiliteEnum.Public,[Validators.required]],
     statut: [StatutEnum.AAcquerir,[Validators.required]],
     categorieId: [, [Validators.required]],
-    niveauId : [, [Validators.required]]
+    niveauId : [, [Validators.required]],
+    certificatId : [,]
   })
 
   onSave(): void {
@@ -49,7 +52,7 @@ export class AjouterCompetence {
     }
     
     const dateSelectionnee = new Date(this.form.controls["dateDeDebut"].value!);
-    dateSelectionnee.setHours(12, 0, 0, 0);
+    dateSelectionnee.setHours(12);
 
     const competence : CompetenceModel ={
       nom: this.form.controls["nom"].value!!,
@@ -58,13 +61,14 @@ export class AjouterCompetence {
       visibilite: this.form.controls["visibilite"].value!!,
       statut: this.form.controls["statut"].value!!,
       categorieId: this.form.controls["categorieId"].value!!,
-      niveauId: this.form.controls["niveauId"].value!!,      
+      niveauId: this.form.controls["niveauId"].value!!, 
+      certificatId : this.form.controls["certificatId"].value ?? null,  
 
       id : "",
       categorieNom : "",
       niveauLibelle : "",
-      position : 0
-
+      position : 0,
+      nomCertificat : "",
     };
     this.sauvegarder.emit(competence);
   }

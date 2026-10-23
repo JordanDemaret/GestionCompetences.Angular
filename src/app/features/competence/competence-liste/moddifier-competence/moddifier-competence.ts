@@ -7,6 +7,8 @@ import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../../core/mo
 import { CategorieModel } from '../../../../core/models/categorie.model';
 import { NiveauModel } from '../../../../core/models/niveaux.model';
 import { ButtonModule } from 'primeng/button';
+import { Certificat } from '../../certificat/certificat';
+import { CertificatModel } from '../../../../core/models/certificat.model';
 
 @Component({
   imports: [ReactiveFormsModule, FormsModule, InputText, DatePicker, Select, ButtonModule],
@@ -17,6 +19,8 @@ import { ButtonModule } from 'primeng/button';
 export class ModdifierCompetence {
   categorieList = input<CategorieModel[]>([]);
   niveauList = input<NiveauModel[]>([]);
+  certificatList = input<CertificatModel[]>([])
+
   competence = input.required<CompetenceModel>();
 
   visibiliteOption = [
@@ -39,7 +43,9 @@ export class ModdifierCompetence {
     visibilite: [VisibiliteEnum.Public,[Validators.required]],
     statut: [StatutEnum.AAcquerir,[Validators.required]],
     categorieId: ["", [Validators.required]],
-    niveauId : ["", [Validators.required]]
+    niveauId : ["", [Validators.required]],
+    certificatId : ["",]
+
   })
 
   constructor(){
@@ -53,6 +59,7 @@ export class ModdifierCompetence {
           statut : this.competence()!.statut,
           categorieId : this.competence()!.categorieId,
           niveauId : this.competence()!.niveauId,
+          certificatId : this.competence()!.certificatId
         })
       }
     })
@@ -77,8 +84,11 @@ export class ModdifierCompetence {
       niveauId: this.form.controls["niveauId"].value!,      
       categorieNom : this.categorieList().find(c => c.id == this.form.controls["categorieId"].value!)?.nom ?? "",
       niveauLibelle : this.niveauList().find(c => c.id == this.form.controls["niveauId"].value!)?.label ?? "",
-      position : this.competence()!.position
-
+      position : this.competence()!.position,
+      
+      certificatId : this.form.controls["certificatId"].value ?? null,  
+      nomCertificat : this.certificatList().find(c => c.id == this.form.controls["certificatId"].value!)?.nomCertificat ?? "",
+      
     };
     this.sauvegarder.emit(competence);
   }

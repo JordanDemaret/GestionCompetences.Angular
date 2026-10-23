@@ -12,4 +12,8 @@ export const routes : Routes = [
         loadComponent : () => import('./categorie/categorie').then(f => f.Categorie ),
         canActivate : [rolesGuard]
     },
+    {
+        path : "certificat",
+        loadComponent : () => import('./certificat/certificat').then(f => f.Certificat)
+    }
 ]
