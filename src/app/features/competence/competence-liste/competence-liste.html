@@ -3,6 +3,17 @@
     Ajouter des compétence
 </p-button>
 
+<app-filter-competence
+    [competenceList]="competenceList()"
+    [categorieListe]="categorieList()"
+    [niveauListe]="niveauList()"
+    (filteredCompetences)="filteredCompetences.set($event)"
+/>
+
+
+
+
+
 <div>
 <table class="table">
     <thead >
@@ -20,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (c of competenceList(); track $index) 
+        @for (c of filteredCompetences(); track $index) 
         {
             <tr class="tbody-row">
                 <td>{{c.position}}</td>
