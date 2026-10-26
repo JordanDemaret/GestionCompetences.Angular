@@ -64,6 +64,16 @@ export class FilterCompetence {
 
   });
 
+  reset() {
+    this.searchTermNam.set('');
+    this.searchDateDebut.set(null);
+    this.searchDateFin.set(null);
+    this.searchVisisbiliter.set(null)
+    this.searchStatut.set(null)
+    this.searchCategori.set(null)
+    this.searchNiveau.set(null)
+  }
+
 
   constructor() {
     effect(() => {
