@@ -1,6 +1,6 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CompetenceService } from '../../../core/services/competence.service';
-import { CompetenceModel } from '../../../core/models/competence.model';
+import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../core/models/competence.model';
 import { DatePipe } from '@angular/common';
 import { StatutPipe } from '../../../shared/pipes/statut-pipe';
 import { VisibilitePipe } from '../../../shared/pipes/visibilite-pipe';
@@ -14,14 +14,17 @@ import { NiveauService } from '../../../core/services/niveau.service';
 import { ModdifierCompetence } from './moddifier-competence/moddifier-competence';
 import { CertificatServices } from '../../../core/services/certificat.services';
 import { CertificatModel } from '../../../core/models/certificat.model';
+import { FormsModule } from '@angular/forms';
+import { FilterCompetence } from './filter-competence/filter-competence';
 
 @Component({
-  imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence, ModdifierCompetence],
+  imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence, ModdifierCompetence, FormsModule, FilterCompetence],
   selector: 'app-competence-liste',
   styleUrl: './competence-liste.css',
   templateUrl: './competence-liste.html',
 })
 export class CompetenceListe implements OnInit{
+
 
   readonly competenceServ = inject(CompetenceService)
   readonly categorieServ = inject(CategoriesService)
@@ -41,6 +44,12 @@ export class CompetenceListe implements OnInit{
   supprimerCompetence : boolean = false
 
   competenceSelect = signal<CompetenceModel|null>(null)
+
+  searchTermNam = signal<string>('');
+  searchVisisbiliter = signal<VisibiliteEnum| null>(null)
+  searchStatut = signal<StatutEnum| null>(null)
+
+  filteredCompetences = signal<CompetenceModel[]>([]);
   
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({
