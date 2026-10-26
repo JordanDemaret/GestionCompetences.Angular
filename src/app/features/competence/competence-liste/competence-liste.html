@@ -3,6 +3,11 @@
     Ajouter des compétence
 </p-button>
 
+<p-button [disabled]="!hasChanged" (click)="loadCompetences()" >
+    Enregistrer les modifications
+</p-button>
+
+
 <app-filter-competence
     [competenceList]="competenceList()"
     [categorieListe]="categorieList()"

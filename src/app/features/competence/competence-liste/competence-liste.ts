@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { afterNextRender, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { CompetenceService } from '../../../core/services/competence.service';
 import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../core/models/competence.model';
 import { DatePipe } from '@angular/common';
@@ -26,8 +26,7 @@ import {CdkDrag,CdkDragDrop,CdkDropList, moveItemInArray} from '@angular/cdk/dra
   templateUrl: './competence-liste.html',
 })
 export class CompetenceListe implements OnInit{
-
-
+  
   readonly competenceServ = inject(CompetenceService)
   readonly categorieServ = inject(CategoriesService)
   readonly niveauServ = inject(NiveauService)
@@ -53,6 +52,8 @@ export class CompetenceListe implements OnInit{
 
   filteredCompetences = signal<CompetenceModel[]>([]);
   isFiltered = signal<boolean>(false);
+
+  hasChanged = false;
   
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({
@@ -73,6 +74,18 @@ export class CompetenceListe implements OnInit{
     this.certificatServ.getAllCertificats().subscribe({
       next : (certificat : CertificatModel[])  => {
         this.certificatListe.set(certificat)
+      }
+    })
+  }
+
+  loadCompetences(): void {
+    const str =  this.competenceList().map(c => c.id)
+    this.competenceServ.putRepositionner(str).subscribe({
+      error: (err) => {
+        console.error('Erreur lors du réordonnancement', err);
+      },
+      complete : () => {
+        this.hasChanged = false;
       }
     })
   }
@@ -157,7 +170,7 @@ export class CompetenceListe implements OnInit{
     });
       
     this.competenceList.set(currentList);
-    
+    this.hasChanged = true
   }
 
 }
