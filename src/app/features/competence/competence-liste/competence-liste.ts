@@ -16,9 +16,11 @@ import { CertificatServices } from '../../../core/services/certificat.services';
 import { CertificatModel } from '../../../core/models/certificat.model';
 import { FormsModule } from '@angular/forms';
 import { FilterCompetence } from './filter-competence/filter-competence';
+import {CdkDrag,CdkDragDrop,CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
-  imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence, ModdifierCompetence, FormsModule, FilterCompetence],
+  imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence,
+    ModdifierCompetence, FormsModule, FilterCompetence, CdkDropList, CdkDrag],
   selector: 'app-competence-liste',
   styleUrl: './competence-liste.css',
   templateUrl: './competence-liste.html',
@@ -50,6 +52,7 @@ export class CompetenceListe implements OnInit{
   searchStatut = signal<StatutEnum| null>(null)
 
   filteredCompetences = signal<CompetenceModel[]>([]);
+  isFiltered = signal<boolean>(false);
   
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({
@@ -142,6 +145,19 @@ export class CompetenceListe implements OnInit{
         this.competenceSelect.set(null)
       }
     })
+  }
+
+  drop(event : CdkDragDrop<CompetenceModel[]>) {
+
+    const currentList = [...this.competenceList()];
+    moveItemInArray(currentList, event.previousIndex, event.currentIndex);
+
+    currentList.forEach((comp, index) => {
+      comp.position = index + 1; 
+    });
+      
+    this.competenceList.set(currentList);
+    
   }
 
 }
