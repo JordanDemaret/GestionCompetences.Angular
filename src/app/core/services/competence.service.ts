@@ -26,4 +26,9 @@ export class CompetenceService {
   deleteCompetence(id : string) : Observable<unknown>{
     return this.http.delete(`${this.UrlBase}/${id}`)
   }
+
+  putRepositionner(idCompetences : string[]) : Observable<unknown>{
+    const payload = { idCompetences };
+    return this.http.put(`${this.UrlBase}/repositionner`, payload);
+  }
 }

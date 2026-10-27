@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import { Component, computed, effect, input, output, signal } from '@angular/core';
 import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../../core/models/competence.model';
 import { FormsModule } from '@angular/forms';
 import { CategorieModel } from '../../../../core/models/categorie.model';
@@ -18,6 +18,7 @@ export class FilterCompetence {
   categorieListe = input<CategorieModel[]>() 
   niveauListe = input<NiveauModel[]>() 
   filteredCompetences = output<CompetenceModel[]>()
+  hasFilterChanged = output<boolean>();
 
 
   searchTermNam = signal<string>('');
@@ -74,11 +75,22 @@ export class FilterCompetence {
     this.searchNiveau.set(null)
   }
 
+  hasActiveFilter = computed(() => {
+    return this.searchTermNam() !== '' || 
+          this.searchVisisbiliter() !== null || 
+          this.searchStatut() !== null || 
+          this.searchCategori() !== null || 
+          this.searchNiveau() !== null || 
+          this.searchDateDebut() !== null ||
+          this.searchDateFin() !== null;
+  });
+
 
   constructor() {
     effect(() => {
       const resultat = this.filteredListe();
       this.filteredCompetences.emit(resultat);
+      this.hasFilterChanged.emit(this.hasActiveFilter())
     });
   }
 

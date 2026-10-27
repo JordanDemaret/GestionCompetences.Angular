@@ -41,12 +41,12 @@ table thead,
 }
 
 .note-cell {
-  max-width: 200px; /* Ajuste la largeur max selon tes besoins */
+  max-width: 200px; 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
-  color: #2563eb; /* Une couleur légèrement bleutée pour indiquer le clic */
+  color: #2563eb; 
 }
 
 .text{
@@ -74,3 +74,10 @@ table thead,
     width: 100px;
 }
 
+/* Permet au CDK de capturer le mouvement sur les lignes de tableau */
+.cdk-drag-preview {
+  display: table !important;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}

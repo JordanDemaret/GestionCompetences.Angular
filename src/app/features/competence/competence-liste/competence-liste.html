@@ -3,11 +3,17 @@
     Ajouter des compétence
 </p-button>
 
+<p-button [disabled]="!hasChanged()" (click)="loadCompetences()" severity="info" >
+    Enregistrer les modifications
+</p-button>
+
+
 <app-filter-competence
     [competenceList]="competenceList()"
     [categorieListe]="categorieList()"
     [niveauListe]="niveauList()"
     (filteredCompetences)="filteredCompetences.set($event)"
+    (hasFilterChanged)="isFiltered.set($event)"
 />
 
 
@@ -30,10 +36,13 @@
             <th class="col"></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody
+    cdkdis
+        cdkDropList
+        (cdkDropListDropped)="drop($event)">
         @for (c of filteredCompetences(); track $index) 
         {
-            <tr class="tbody-row">
+            <tr class="tbody-row" cdkDrag [cdkDragDisabled]="isFiltered()">
                 <td>{{c.position}}</td>
                 <td>{{c.nom}}</td>
                 <td class="note-cell" (click)="ouvrirNote(c.note)">{{c.note}}</td>
