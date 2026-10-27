@@ -3,7 +3,7 @@
     Ajouter des compétence
 </p-button>
 
-<p-button [disabled]="!hasChanged" (click)="loadCompetences()" >
+<p-button [disabled]="!hasChanged()" (click)="loadCompetences()" severity="info" >
     Enregistrer les modifications
 </p-button>
 

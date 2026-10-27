@@ -53,7 +53,7 @@ export class CompetenceListe implements OnInit{
   filteredCompetences = signal<CompetenceModel[]>([]);
   isFiltered = signal<boolean>(false);
 
-  hasChanged = false;
+  hasChanged =signal<boolean>(false);
   
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({
@@ -85,7 +85,7 @@ export class CompetenceListe implements OnInit{
         console.error('Erreur lors du réordonnancement', err);
       },
       complete : () => {
-        this.hasChanged = false;
+        this.hasChanged.set(false);
       }
     })
   }
@@ -170,7 +170,7 @@ export class CompetenceListe implements OnInit{
     });
       
     this.competenceList.set(currentList);
-    this.hasChanged = true
+    this.hasChanged.set(true)
   }
 
 }
