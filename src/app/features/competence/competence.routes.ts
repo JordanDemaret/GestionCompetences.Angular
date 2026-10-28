@@ -15,5 +15,9 @@ export const routes : Routes = [
     {
         path : "certificat",
         loadComponent : () => import('./certificat/certificat').then(f => f.Certificat)
+    },
+    {
+        path : "stat",
+        loadComponent : () => import('./stat/stat').then(f => f.Stat)
     }
 ]
