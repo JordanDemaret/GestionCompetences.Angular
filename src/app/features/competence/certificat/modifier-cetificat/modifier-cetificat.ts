@@ -7,11 +7,11 @@ import { Button } from 'primeng/button';
 
 @Component({
   imports: [ReactiveFormsModule, InputText, DatePicker, Button],
-  selector: 'app-moddifier-cetificat',
-  styleUrl: './moddifier-cetificat.css',
-  templateUrl: './moddifier-cetificat.html',
+  selector: 'app-modifier-cetificat',
+  styleUrl: './modifier-cetificat.css',
+  templateUrl: './modifier-cetificat.html',
 })
-export class ModdifierCetificat {
+export class ModifierCetificat {
 
   certificat = input.required<CertificatModel>();
 
