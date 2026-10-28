@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { guestGuard } from './core/guards/guest-guard';
 import { Connexion } from './features/auth/connexion/connexion';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
     {
@@ -24,7 +25,8 @@ export const routes: Routes = [
     },
     {
         path :'competence',
-        loadChildren : () => import('./features/competence/competence.routes').then( x => x.routes)
+        loadChildren : () => import('./features/competence/competence.routes').then( x => x.routes),
+        canActivate : [authGuard]
     },
     {
         path : "**",

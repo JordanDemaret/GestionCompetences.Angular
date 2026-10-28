@@ -14,8 +14,8 @@ export class CategoriesService {
         return this.http.get<CategorieModel[]>(this.UrlBase)
     }
 
-    postCategorie (nonString : string) : Observable<CategorieModel> {
-        return this.http.post<CategorieModel>(this.UrlBase,{nom: nonString})
+    postCategorie (nomString : string) : Observable<CategorieModel> {
+        return this.http.post<CategorieModel>(this.UrlBase,{nom: nomString})
     }
 
     putCategorie (categorie : CategorieModel) : Observable<unknown> {

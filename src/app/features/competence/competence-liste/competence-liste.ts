@@ -1,4 +1,4 @@
-import { afterNextRender, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CompetenceService } from '../../../core/services/competence.service';
 import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../core/models/competence.model';
 import { DatePipe } from '@angular/common';

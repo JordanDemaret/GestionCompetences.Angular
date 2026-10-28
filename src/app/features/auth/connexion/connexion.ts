@@ -47,7 +47,7 @@ export class Connexion {
     const requete : ConnexionRequete = this.form.value
 
 
-    this.authService.Connexion(requete).subscribe({
+    this.authService.connexion(requete).subscribe({
       next : () => { 
         this.erreur.set(null);
         this.route.navigate([''])

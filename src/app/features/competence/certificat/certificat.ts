@@ -6,10 +6,10 @@ import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { AjouterCetificat } from './ajouter-cetificat/ajouter-cetificat';
 import { DatePipe } from '@angular/common';
-import { ModdifierCetificat } from './moddifier-cetificat/moddifier-cetificat';
+import { ModifierCetificat } from './modifier-cetificat/modifier-cetificat';
 
 @Component({
-  imports: [TableModule, Button, Dialog, DatePipe, AjouterCetificat, ModdifierCetificat],
+  imports: [TableModule, Button, Dialog, DatePipe, AjouterCetificat, ModifierCetificat],
   selector: 'app-certificat',
   styleUrl: './certificat.css',
   templateUrl: './certificat.html',
