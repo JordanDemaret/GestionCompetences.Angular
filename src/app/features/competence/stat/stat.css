@@ -1,0 +1,10 @@
+.a{
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+p-card {
+    width: 500px; 
+    min-height: 200px;
+    margin: 0 auto;
+
+}

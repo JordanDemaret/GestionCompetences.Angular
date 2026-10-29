@@ -1,3 +1,34 @@
-<p>Fonctionnalité en cours de développement (bientôt disponible).</p>
+<h2>Statistique.</h2>
 
-<p-chart type="pie" [data]="data">
+<div class="a">
+    <p-card>
+        <h3>Nombre de compétence de l'utilisateur</h3>
+        <span class="text-5xl font-bold text-primary">{{ competenceList().length }}</span>
+    </p-card>   
+    
+    <p-card>
+        <h3>TEST 1!!!!!!!!!!!</h3>
+        @if (dataCompCat()){
+            <p-chart type="doughnut" [data]="dataCompCat()"></p-chart>
+        }
+        @else {
+            <p>Chargement des statistiques...</p>
+        }
+    </p-card>
+
+
+    <p-card>
+        @if (dataCompNav()) {
+            <h3>Répartition des compétence par rapport au différent niveau</h3> 
+            <p-chart type="doughnut" [data]="dataCompNav()"></p-chart>
+        }
+        @else {
+            <p>Chargement des statistiques...</p>
+        }
+    </p-card>
+
+ 
+      
+
+      
+</div>
