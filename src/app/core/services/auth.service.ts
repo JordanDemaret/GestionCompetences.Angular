@@ -17,11 +17,11 @@ export class AuthService {
     readonly isLogin = computed(() => this.tokens() !== null);
     readonly accessToken = computed(() => this.tokens()?.token ?? null);
 
-    Inscription (requete : InscriptionRequete) : Observable<unknown> {
+    inscription (requete : InscriptionRequete) : Observable<unknown> {
         return this.http.post(this.UrlBase, requete);
     }
 
-    Connexion  (request :  ConnexionRequete) : Observable<UtilisateurInfo> {
+    connexion  (request :  ConnexionRequete) : Observable<UtilisateurInfo> {
         return this.http.post<UtilisateurInfo>(`${this.UrlBase}/login`, request)
                     .pipe(tap((token : UtilisateurInfo) => {
                         this.tokens.set(token)
@@ -30,7 +30,7 @@ export class AuthService {
 
     }
 
-    RefreshToken () : Observable<TokenInfo> {
+    refreshToken () : Observable<TokenInfo> {
         return this.http.post<TokenInfo>(`${this.UrlBase}/refresh`, 
                                         { refreshToken: this.tokens()?.refreshToken,token :this.tokens()?.token })
                     .pipe(tap((PairToken : TokenInfo) => {
@@ -48,7 +48,7 @@ export class AuthService {
 
     }
 
-    Deconnexion  () :void {
+    deconnexion  () :void {
         this.tokens.set(null);
         sessionStorage.removeItem(STORAGE_KEY);
     }
@@ -64,6 +64,10 @@ export class AuthService {
 
     get Id(){
         return this.tokens()?.id;
+    }
+
+    get Role(){
+        return this.tokens()?.role;
     }
 
 

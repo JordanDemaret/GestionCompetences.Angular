@@ -57,7 +57,7 @@ export class Navbar {
           icon : "pi pi-sign-out",
            styleClass: 'push-right',
           command : () => {
-            this.authService.Deconnexion();
+            this.authService.deconnexion();
             this.route.navigate([''])
           }
         }]

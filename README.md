@@ -1,59 +1,165 @@
-# GestionCompetencesAngular
+# 🎓 GestionCompetences - Frontend Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.5.
+Application web moderne permettant le suivi, l'organisation et la valorisation des compétences personnelles et professionnelles. Développée avec **Angular**, **PrimeNG** et une architecture réactive basée sur les **Signals**.
 
-## Development server
+---
 
-To start a local development server, run:
+## 📋 Table des Matières
 
-```bash
-ng serve
+- [Aperçu du Projet](#-aperçu-du-projet)
+- [Fonctionnalités Principales](#-fonctionnalités-principales)
+- [Stack Technique & Dépendances](#-stack-technique--dépendances)
+- [Architecture du Code](#-architecture-du-code)
+- [Prérequis](#-prérequis)
+- [Installation & Démarrage](#-installation--démarrage)
+- [Scripts Disponibles](#-scripts-disponibles)
+- [Déploiement Docker](#-déploiement-docker)
+
+---
+
+## 🌟 Aperçu du Projet
+
+**GestionCompetences** offre un espace dédié pour :
+- **Utilisateurs standards :** Gérer leur catalogue personnel de compétences, associer des certifications officielles, organiser l'ordre de priorité par glisser-déposer, filtrer et suivre leur niveau de maîtrise.
+- **Administrateurs :** Gérer le référentiel global des catégories.
+
+---
+
+## ✨ Fonctionnalités Principales
+
+### 🔐 Authentification & Sécurité (RBAC)
+- **Inscription & Connexion :** Formulaires réactifs avec validation personnalisée de la complexité des mots de passe.
+- **Directive UI :** Affichage / masquage du mot de passe en un clic (`[appAfficherMotDePasse]`).
+- **Sécurité JWT :** Stockage en session (`sessionStorage`), intercepteur HTTP (`TokenInterceptor`) injectant automatiquement le Bearer token et gestion du Refresh Token.
+- **Guards de Navigation :**
+  - `guestGuard` : Redirige les utilisateurs connectés tentant d'accéder aux pages de login/register.
+  - `rolesGuard` : Bloque l'accès aux interfaces administratives aux comptes non-admin.
+
+### 🎯 Gestion des Compétences
+- **CRUD complet :** Création, modification et suppression de compétences avec gestion de la visibilité (Public / Privé), du statut et des notes personnelles.
+- **Drag & Drop (Angular CDK) :** Réordonnancement interactif des compétences par glisser-déposer avec mise à jour automatique des positions.
+- **Filtrage avancé :** Filtrage combiné par nom, catégorie, niveau, statut, visibilité et dates d'acquisition. Le drag & drop est désactivé automatiquement lorsqu'un filtre est actif pour préserver la cohérence des positions.
+- **Persistance en un clic :** Détection réactive des changements via signal (`hasChanged`) avec bouton d'enregistrement dédié.
+- **Fix Timezone :** Normalisation des dates pour éviter les décalages de fuseau horaire UTC.
+
+### 📜 Gestion des Certificats
+- Gestion (CRUD) des certifications professionnelles (nom, code, éditeur, date d'obtention).
+- Liaison directe entre compétences et certificats associés.
+
+### 🏷️ Gestion des Catégories(Admin)
+- Administration des catégories  sous forme de dialogues modaux PrimeNG (`p-dialog`, `p-select`).
+
+---
+
+## 🛠️ Stack Technique & Dépendances
+
+- **Framework :** [Angular](https://angular.dev/) 22 (Standalone Components, Signals réactifs, `inject()`)
+- **Composants UI :** [PrimeNG](https://primeng.org/) & [PrimeIcons](https://primeng.org/icons)
+- **Style :** CSS modulaire & [TailwindCSS](https://tailwindcss.com/)
+- **Drag & Drop :** `@angular/cdk/drag-drop`
+- **Requêtes & État :** RxJS & Angular Signals (`signal`, `computed`, `effect`)
+- **Conteneurisation :** Docker & Nginx Alpine
+
+---
+
+## 📂 Architecture du Code
+
+```text
+src/app/
+├── core/
+│   ├── guards/          # guestGuard, rolesGuard (protection RBAC)
+│   ├── intercepteur/    # token-interceptor (injection JWT & refresh)
+│   ├── models/          # Interfaces TypeScript (auth, competence, certificat, etc.)
+│   └── services/        # Services API (auth, competence, certificat, etc.)
+├── features/
+│   ├── auth/            # Connexion & Inscription
+│   ├── competence/      # Gestion des compétences, catégories & certificats
+│   ├── home/            # Page d'accueil publique
+│   └── layout/          # Navbar publique & UtilisateurNavBar latérale
+└── shared/
+    ├── directives/      # AfficherMotDePasseDirective
+    ├── pipes/           # StatutPipe, VisibilitePipe
+    └── validators/      # mot-de-passe.validator
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## ⚙️ Prérequis
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Node.js** : v20.x ou v22.x LTS recommandé
+- **npm** : v10.x ou plus
+- **[Backend API](https://github.com/JordanDemaret/GestionCompetences)**  : ASP.NET Core Web API en cours d'exécution
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🚀 Installation & Démarrage
 
-```bash
-ng generate --help
-```
+1. **Cloner le projet :**
+   ```bash
+   git clone https://github.com/JordanDemaret/GestionCompetences.Angular.git
+   cd GestionCompetences.Angular
+   ```
 
-## Building
+2. **Installer les dépendances :**
+   ```bash
+   npm install --legacy-peer-deps
+   ```
 
-To build the project run:
+3. **Lancer le serveur de développement :**
+   ```bash
+   npm start
+   # ou
+   ng serve
+   ```
+   Rendez-vous ensuite sur `http://localhost:4200/`.
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 📜 Scripts Disponibles
 
-## Running unit tests
+| Commande | Description |
+| :--- | :--- |
+| `npm start` | Lance le serveur local de dev (`ng serve`) |
+| `npm run build` | Compile l'application pour la production dans `/dist` |
+| `npm run watch` | Compile avec rechargement automatique en environnement dev |
+| `npm test` | Exécute les tests unitaires |
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+2. **Installer les dépendances :**
+   ```bash
+   npm install --legacy-peer-deps
+   ```
 
-```bash
-ng test
-```
+3. **Configurer l'environnement :**
+   Vérifiez l'URL de votre API dans [src/environments/environment.development.ts](src/environments/environment.development.ts) :
+   ```typescript
+   export const environment = {
+     production: false,
+     apiUrl: 'http://localhost:5000/api'
+   };
+   ```
 
-## Running end-to-end tests
+4. **Lancer le serveur de développement :**
+   ```bash
+   npm start
+   # ou
+   ng serve
+   ```
+   Rendez-vous ensuite sur `http://localhost:4200/`.
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## 🐳 Déploiement Docker
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Le projet intègre un `Dockerfile` multi-stage (Node 22 pour le build, Nginx Alpine pour la distribution) :
 
-## Additional Resources
+1. **Construire l'image :**
+   ```bash
+   docker build -t gestion-competences-angular .
+   ```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+2. **Lancer le conteneur :**
+   ```bash
+   docker run -d -p 8080:80 --name gestion-competences-front gestion-competences-angular
+   ```
+   L'application sera accessible sur `http://localhost:8080`.
+

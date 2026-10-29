@@ -8,6 +8,7 @@ import { InscriptionRequete } from '../../../core/models/auth.model';
 import { Router, RouterLink } from '@angular/router';
 import { ErreurModel } from '../../../core/models/erreur.models';
 import { AfficherMotDePasseDirective } from "../../../shared/directives/afficher-mot-de-passe.directive";
+import { switchMap } from 'rxjs';
 
 @Component({
   imports: [InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective, RouterLink],
@@ -56,20 +57,15 @@ export class Inscription {
     const requete : InscriptionRequete = this.form.value
 
 
-    this.authService.Inscription(requete).subscribe({
-      next : () => { 
-        this.erreur.set(null);
-        this.authService.Connexion({
+    this.authService.inscription(requete).pipe(
+      switchMap( () => this.authService.connexion({
           email : requete.email,
           motDePasse : requete.motDePasse
-        }).subscribe({
-            next : () => { 
-              this.route.navigate([''])
-            },
-            error  : (err ) => {
-              this.erreur.set(err.error);
-            }
-          })
+        })
+    )).subscribe({
+      next : () => { 
+        this.erreur.set(null);
+        this.route.navigate([''])
       },
       error  : (err ) => {
         this.erreur.set(err.error);

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CompetenceService } from '../../../core/services/competence.service';
-import { CompetenceModel } from '../../../core/models/competence.model';
+import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../core/models/competence.model';
 import { DatePipe } from '@angular/common';
 import { StatutPipe } from '../../../shared/pipes/statut-pipe';
 import { VisibilitePipe } from '../../../shared/pipes/visibilite-pipe';
@@ -12,22 +12,30 @@ import { NiveauModel } from '../../../core/models/niveaux.model';
 import { CategoriesService } from '../../../core/services/categories.service';
 import { NiveauService } from '../../../core/services/niveau.service';
 import { ModdifierCompetence } from './moddifier-competence/moddifier-competence';
+import { CertificatServices } from '../../../core/services/certificat.services';
+import { CertificatModel } from '../../../core/models/certificat.model';
+import { FormsModule } from '@angular/forms';
+import { FilterCompetence } from './filter-competence/filter-competence';
+import {CdkDrag,CdkDragDrop,CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
-  imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence, ModdifierCompetence],
+  imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence,
+    ModdifierCompetence, FormsModule, FilterCompetence, CdkDropList, CdkDrag],
   selector: 'app-competence-liste',
   styleUrl: './competence-liste.css',
   templateUrl: './competence-liste.html',
 })
 export class CompetenceListe implements OnInit{
-
+  
   readonly competenceServ = inject(CompetenceService)
   readonly categorieServ = inject(CategoriesService)
   readonly niveauServ = inject(NiveauService)
+  readonly certificatServ = inject(CertificatServices)
 
   public competenceList = signal<CompetenceModel[]>([])
   public categorieList = signal<CategorieModel[]>([]) 
   public niveauList = signal<NiveauModel[]>([])
+  public certificatListe = signal<CertificatModel[]>([])
 
   displayNoteDialog: boolean = false;
   selectedNote: string = '';
@@ -37,6 +45,15 @@ export class CompetenceListe implements OnInit{
   supprimerCompetence : boolean = false
 
   competenceSelect = signal<CompetenceModel|null>(null)
+
+  searchTermNam = signal<string>('');
+  searchVisisbiliter = signal<VisibiliteEnum| null>(null)
+  searchStatut = signal<StatutEnum| null>(null)
+
+  filteredCompetences = signal<CompetenceModel[]>([]);
+  isFiltered = signal<boolean>(false);
+
+  hasChanged =signal<boolean>(false);
   
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({
@@ -52,6 +69,23 @@ export class CompetenceListe implements OnInit{
     this.niveauServ.getAllNiveau().subscribe({
       next : (niveau : NiveauModel[]) => {
         this.niveauList.set(niveau)
+      }
+    })
+    this.certificatServ.getAllCertificats().subscribe({
+      next : (certificat : CertificatModel[])  => {
+        this.certificatListe.set(certificat)
+      }
+    })
+  }
+
+  loadCompetences(): void {
+    const str =  this.competenceList().map(c => c.id)
+    this.competenceServ.putRepositionner(str).subscribe({
+      error: (err) => {
+        console.error('Erreur lors du réordonnancement', err);
+      },
+      complete : () => {
+        this.hasChanged.set(false);
       }
     })
   }
@@ -82,7 +116,6 @@ export class CompetenceListe implements OnInit{
     this.competenceServ.postCompetence(competence).subscribe({
       next: (comp : CompetenceModel) => {
         this.competenceList.update(competences => [...competences, comp]);
-        this.ajouterCompetence = false;
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);
@@ -125,6 +158,19 @@ export class CompetenceListe implements OnInit{
         this.competenceSelect.set(null)
       }
     })
+  }
+
+  drop(event : CdkDragDrop<CompetenceModel[]>) {
+
+    const currentList = [...this.competenceList()];
+    moveItemInArray(currentList, event.previousIndex, event.currentIndex);
+
+    currentList.forEach((comp, index) => {
+      comp.position = index + 1; 
+    });
+      
+    this.competenceList.set(currentList);
+    this.hasChanged.set(true)
   }
 
 }

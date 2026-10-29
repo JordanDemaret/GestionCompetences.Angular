@@ -45,6 +45,15 @@
            appendTo="body"></p-select>
     </div>
 
+    <div class="form-group-col"> 
+        <label for="certificatId">Certificat </label>
+        <p-select id="certificatId" [options]="certificatList()" 
+           optionValue="id" optionLabel="nomCertificat"
+           formControlName="certificatId"
+           [showClear]="true"
+           appendTo="body">
+        </p-select>
+    </div>
 
     <div>
         <p-button label="Enregistrer" severity="success" (onClick)="onSave()"/>

@@ -1,0 +1,97 @@
+<div class="search-bar">
+  <div class="filter-group">
+    <label for="nom">Rechercher une compétence</label>
+    <input 
+      id="nom"
+      type="text" 
+      [ngModel]="searchTermNam()"
+      (ngModelChange)="searchTermNam.set($event)" 
+      class="p-inputtext"
+      placeholder="Nom de la compétence..."
+    />
+  </div>
+
+  <div class="filter-group">
+    <label for="dateFilter">À partir du</label>
+    <input 
+      id="dateFilter"
+      type="date" 
+      [ngModel]="searchDateDebut()"
+      (ngModelChange)="searchDateDebut.set($event)" 
+      class="p-inputtext"
+    />
+  </div>
+  
+  <div class="filter-group">
+    <label for="dateFilter2">Jusqu'à</label>
+    <input 
+      id="dateFilter2"
+      type="date" 
+      [ngModel]="searchDateFin()"
+      (ngModelChange)="searchDateFin.set($event)" 
+      class="p-inputtext"
+    />
+  </div>
+  
+  <div class="filter-group">
+    <label for="visibilite">Visibilité</label>
+    <select 
+      id="visibilite"
+      [ngModel]="searchVisisbiliter()" 
+      (ngModelChange)="searchVisisbiliter.set($event)"
+      class="p-inputtext">
+      <option [ngValue]="null">Tous</option>
+      <option [ngValue]="VisibiliteEnum.Public">Public</option>
+      <option [ngValue]="VisibiliteEnum.Prive">Privé</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="statut">Statut</label>
+    <select 
+      id="statut"
+      [ngModel]="searchStatut()" 
+      (ngModelChange)="searchStatut.set($event)"
+      class="p-inputtext">
+      <option [ngValue]="null">Tous</option>
+      <option [ngValue]="StatuEnum.AAcquerir">A acquerir</option>
+      <option [ngValue]="StatuEnum.EnCours">En cours</option>
+      <option [ngValue]="StatuEnum.Acquise">Acquise</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="categorie">Categorie</label>
+    <select 
+      id="categorie"
+      [ngModel]="searchCategori()" 
+      (ngModelChange)="searchCategori.set($event)"
+      class="p-inputtext">
+      <option [ngValue]="null">Tout</option>
+      @for (cate of categorieListe(); track $index) {
+        <option [ngValue]="cate.id">{{cate.nom}}</option>
+      }
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="niveau">Niveau</label>
+    <select 
+      id="Niveau"
+      [ngModel]="searchNiveau()" 
+      (ngModelChange)="searchNiveau.set($event)"
+      class="p-inputtext">
+      <option [ngValue]="null">Tout</option>
+      @for (niv of niveauListe(); track $index) {
+        <option [ngValue]="niv.id">{{niv.label}}</option>
+      }
+    </select>
+  </div>
+
+  <div class="filter-actions">
+  <button type="button" (click)="reset()" class="p-button p-button-info">
+    Réinitialiser
+  </button>
+</div>
+</div>
+

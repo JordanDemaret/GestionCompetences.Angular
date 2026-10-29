@@ -1,0 +1,90 @@
+<p-button (onClick)="ouvrirAjout()" >
+    Ajouter des compétence
+</p-button>
+
+<p-table [value]="certificatListe()"> 
+    <ng-template #header>
+        <tr>
+            <th>Nom</th>
+            <th>Code</th>
+            <th>Editeur</th>
+            <th>Date D'obtention"</th>
+            <th>Nombre de Compétence liée</th>
+            <th></th>
+        </tr>
+    </ng-template >
+
+    <ng-template #body let-cer>
+        <tr>
+            <td>{{cer.nomCertificat}}</td>
+            <td>{{cer.codeCertificat}}</td>
+            <td>{{cer.editeur}}</td>
+            <td>{{cer.dateObtention | date : 'dd/MM/yyyy'}}</td>
+            <td>{{cer.nombreDeCompetencesLiees}}</td>
+            <td>
+                <p-button (click)="ouvrirModification(cer)" 
+                    icon="pi pi-pencil" 
+                    styleClass="p-button-text"></p-button>
+                   
+                <p-button (click)="ouvrirSuppression(cer)" 
+                    icon="pi pi-trash" 
+                    styleClass="p-button-text"></p-button>
+        </td>
+        </tr>
+    </ng-template>
+
+</p-table> 
+
+<p-dialog    
+    [visible]="ajouterCertif"
+    header="Ajouter un compétence :"
+    [modal]="true"
+    [draggable]="false"
+    [style]="{ width: '40rem' }"
+    (onHide)="ajouterCertif=false;">
+    <app-ajouter-cetificat
+        (sauvegarder)="ajouterCertificat($event)"
+        (annuler)="ajouterCertif=false"
+    />
+</p-dialog>
+
+<p-dialog    
+    [visible]="moddifCertif"
+    header="Modifier un compétence :"
+    [modal]="true"
+    [draggable]="false"
+    [style]="{ width: '40rem' }"
+    (onHide)="moddifCertif=false;">
+    <app-modifier-cetificat
+        [certificat]="CertifSelec()!"
+        (sauvegarder)="modifierCertificat($event)"
+        (annuler)="moddifCertif=false"
+    />
+</p-dialog>
+
+
+
+<p-dialog
+    [visible]="supprimerCertif && CertifSelec() !== null"
+    header="Suppression d'un compétence :"
+    [modal]="true"
+    [draggable]="false"
+    [style]="{ width: '40rem' }"
+    (onHide)="supprimerCertif=false; CertifSelec.set(null)">
+
+    <p class="text">Vous voulez supprimer le certificat {{CertifSelec()?.nomCertificat}} </p>
+    <div class="deleLog"> 
+        <p-button 
+            severity="danger"
+            (onClick)="supprimerCertificat()">
+            Oui
+        </p-button>
+        <p-button 
+            severity="secondary"
+            (onClick)="supprimerCertif = false; 
+            CertifSelec.set(null)">
+            Non
+        </p-button>
+    </div>
+
+</p-dialog>

@@ -3,6 +3,23 @@
     Ajouter des compétence
 </p-button>
 
+<p-button [disabled]="!hasChanged()" (click)="loadCompetences()" severity="info" >
+    Enregistrer les modifications
+</p-button>
+
+
+<app-filter-competence
+    [competenceList]="competenceList()"
+    [categorieListe]="categorieList()"
+    [niveauListe]="niveauList()"
+    (filteredCompetences)="filteredCompetences.set($event)"
+    (hasFilterChanged)="isFiltered.set($event)"
+/>
+
+
+
+
+
 <div>
 <table class="table">
     <thead >
@@ -15,13 +32,17 @@
             <th class="col">Statut</th>
             <th>Catégorie</th>
             <th class="col">Niveau</th>
+            <th class="col">Certificat </th>
             <th class="col"></th>
         </tr>
     </thead>
-    <tbody>
-        @for (c of competenceList(); track $index) 
+    <tbody
+    cdkdis
+        cdkDropList
+        (cdkDropListDropped)="drop($event)">
+        @for (c of filteredCompetences(); track $index) 
         {
-            <tr class="tbody-row">
+            <tr class="tbody-row" cdkDrag [cdkDragDisabled]="isFiltered()">
                 <td>{{c.position}}</td>
                 <td>{{c.nom}}</td>
                 <td class="note-cell" (click)="ouvrirNote(c.note)">{{c.note}}</td>
@@ -30,6 +51,7 @@
                 <td>{{c.statut | statut}}</td>
                 <td>{{c.categorieNom}}</td>
                 <td>{{c.niveauLibelle}}</td>
+                <td>{{c.nomCertificat}}</td>
                 <td>
                     <p-button (click)="ouvrirModification(c)" icon="pi pi-pencil" 
                         styleClass="p-button-text"></p-button>
@@ -67,6 +89,7 @@
     <app-ajouter-competence
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
+        [certificatList]="certificatListe()"
         (sauvegarder)="postCompetence($event)"
         (annuler)="ajouterCompetence= false"
     >
@@ -85,6 +108,7 @@
     <app-moddifier-competence
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
+        [certificatList]="certificatListe()"
         [competence]="competenceSelect()!"
         (sauvegarder)="PutCompetence($event)"
         (annuler)="moddif= false">

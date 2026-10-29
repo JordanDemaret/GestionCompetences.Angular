@@ -20,8 +20,8 @@ export interface CompetenceModel{
     categorieNom : string,
     niveauId : string,
     niveauLibelle : string,
-    position: number;
-    
-    //certificatId : string| null ;
+    position: number,
+    certificatId : string| null ;
+    nomCertificat : string| null ;
 }
 

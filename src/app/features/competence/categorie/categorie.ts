@@ -48,7 +48,7 @@ export class Categorie implements OnInit  {
   }
 
   postNouveauCategorie (nouvelleCat: { nom: string }) : void {
-    this.categorieServ.getPostCategorie(nouvelleCat.nom).subscribe({
+    this.categorieServ.postCategorie(nouvelleCat.nom).subscribe({
       next: (categorie) =>{
         this.categorieList.update(list => [...list, categorie ])
       },
@@ -62,7 +62,7 @@ export class Categorie implements OnInit  {
   }
 
   putNouveauCategorie (Cat: CategorieModel) : void {
-    this.categorieServ.getPutCategorie(Cat).subscribe({
+    this.categorieServ.putCategorie(Cat).subscribe({
       next: (categorie) =>{
         this.categorieList.update(list => list.map(c => c.id === Cat.id ? { ...c, nom: Cat.nom } : c))
       },
