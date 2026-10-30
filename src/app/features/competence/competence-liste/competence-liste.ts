@@ -17,10 +17,11 @@ import { CertificatModel } from '../../../core/models/certificat.model';
 import { FormsModule } from '@angular/forms';
 import { FilterCompetence } from './filter-competence/filter-competence';
 import {CdkDrag,CdkDragDrop,CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
+import { MessageModule } from 'primeng/message';
 
 @Component({
   imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence,
-    ModdifierCompetence, FormsModule, FilterCompetence, CdkDropList, CdkDrag],
+    ModdifierCompetence, FormsModule, FilterCompetence, CdkDropList, CdkDrag, MessageModule],
   selector: 'app-competence-liste',
   styleUrl: './competence-liste.css',
   templateUrl: './competence-liste.html',
@@ -36,6 +37,8 @@ export class CompetenceListe implements OnInit{
   public categorieList = signal<CategorieModel[]>([]) 
   public niveauList = signal<NiveauModel[]>([])
   public certificatListe = signal<CertificatModel[]>([])
+
+  public message  = signal<string|null>(null)
 
   displayNoteDialog: boolean = false;
   selectedNote: string = '';
@@ -80,7 +83,10 @@ export class CompetenceListe implements OnInit{
 
   loadCompetences(): void {
     const str =  this.competenceList().map(c => c.id)
-    this.competenceServ.putRepositionner(str).subscribe({
+    this.competenceServ.putRepositionner(str).subscribe({   
+      next: () => {
+        this.message.set("Les Compétence ont bien été  réordonnée")
+      },
       error: (err) => {
         console.error('Erreur lors du réordonnancement', err);
       },
@@ -116,6 +122,7 @@ export class CompetenceListe implements OnInit{
     this.competenceServ.postCompetence(competence).subscribe({
       next: (comp : CompetenceModel) => {
         this.competenceList.update(competences => [...competences, comp]);
+        this.message.set("Competence ajouter avec succès")
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);
@@ -130,6 +137,7 @@ export class CompetenceListe implements OnInit{
     this.competenceServ.putCompetence(competence).subscribe({
       next: () => {
         this.competenceList.update(liste => liste.map(c => c.id === competence.id? competence : c ) );
+        this.message.set("Competence modifier avec succès")
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);
@@ -148,7 +156,9 @@ export class CompetenceListe implements OnInit{
       next : () => {
         const pos = currentSelected.position
         this.competenceList.update(liste => liste.filter(c => c.id !== currentSelected.id)
-                                      .map(c => c.position > pos? {...c, position : c.position-1} :c ))
+                                      .map(c => c.position > pos? {...c, position : c.position-1} :c ));
+        
+        this.message.set("Competence supprimer avec succès")
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);

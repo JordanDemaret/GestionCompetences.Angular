@@ -6,7 +6,7 @@
         <p>Rejoigniez la plateforme de gestion de compétences</p>
 
         @if (erreur()) {
-            <p-message severity="error" >{{erreur()?.description}}</p-message>
+             <p-message severity="error" >{{erreur()?.description}}</p-message>
         }
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -16,10 +16,10 @@
                 <input pInputText id="Nom" placeholder="Entre votre nom" formControlName="nom"/> 
                 @if (Nom.touched && Nom.invalid) {
                     @if(Nom.hasError('required')){
-                        <p class="error">Le nom est requis.</p>
+                        <p class="errorText">Le nom est requis.</p>
                     }
                     @else {
-                        <p class="error">Le nom doit faire moi de 150 caractère.</p>
+                        <p class="errorText">Le nom doit faire moi de 150 caractère.</p>
                     }
                 }
             </div>
@@ -29,10 +29,10 @@
                 <input pInputText id="Prenom" placeholder="Entre votre prénom" formControlName="prenom"/> 
                 @if (Prenom.touched && Prenom.invalid) {
                     @if(Nom.hasError('required')){
-                        <p class="error">Le prénom est requis.</p>
+                        <p class="errorText">Le prénom est requis.</p>
                     }
                     @else {
-                        <p class="error">Le prénom doit faire moi de 150 caractère.</p>
+                        <p class="errorText">Le prénom doit faire moi de 150 caractère.</p>
                     }
                 }
             </div>
@@ -42,13 +42,13 @@
                 <input pInputText id="Email" placeholder="Entre votre Email" formControlName="email"/>
                 @if (Email.touched && Email.invalid) {
                     @if(Email.hasError('required')){
-                        <p class="error">L'email est requis.</p>
+                        <p class="errorText">L'email est requis.</p>
                     }
                     @else if (Email.hasError('email') || Email.hasError('pattern')) {
-                        <p class="error">Forma du email incorrecte.</p>
+                        <p class="errorText">Forma du email incorrecte.</p>
                     }
                     @else {
-                        <p class="error">Le  doit faire moi de 150 caractère.</p>
+                        <p class="errorText">Le  doit faire moi de 150 caractère.</p>
                     }  
                 }
             </div>
@@ -70,12 +70,12 @@
                 <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
                 @if (MotDePasse.touched && MotDePasse.invalid) {
                     @if(MotDePasse.hasError('required')){
-                        <p class="error">Le mot de passe est requis.</p>
+                        <p class="errorText">Le mot de passe est requis.</p>
                     }
                     @else if (MotDePasse.hasError('minlength')) {
-                        <p class="error">Le champ doit faire minimum 8 caractères</p>
+                        <p class="errorText">Le champ doit faire minimum 8 caractères</p>
                     } @else if (MotDePasse.hasError('maxlength')) {
-                        <p class="error">Le champ doit faire maximum 128 caractères</p>
+                        <p class="errorText">Le champ doit faire maximum 128 caractères</p>
                     } 
                 }
             </div>

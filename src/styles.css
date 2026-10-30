@@ -58,6 +58,6 @@ h1{
     font-weight: 500;      
 }
 
-.error {
-    color: red;
+.errorText {
+    color: red !important;
 }

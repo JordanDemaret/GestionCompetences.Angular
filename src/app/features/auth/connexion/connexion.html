@@ -17,10 +17,10 @@
     
                 @if (Email.touched && Email.invalid) {
                     @if(Email.hasError('required')){
-                        <p class="error">L'email est requis.</p>
+                        <p class="errorText">L'email est requis.</p>
                     }
                     @else if (Email.hasError('email') || Email.hasError('pattern')) {
-                        <p class="error">Forma du email incorrecte.</p>
+                        <p class="errorText">Forma du email incorrecte.</p>
                     }
                 }
             </div>
@@ -30,10 +30,10 @@
                 <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
                 @if (MotDePasse.touched && MotDePasse.invalid) {
                     @if(MotDePasse.hasError('required')){
-                        <p class="error">Le mot de passe est requis.</p>
+                        <p class="errorText">Le mot de passe est requis.</p>
                     }
                     @else if (MotDePasse.hasError('minlength')) {
-                        <p class="error">Le champ doit faire minimum 8 caractères</p>
+                        <p class="errorText">Le champ doit faire minimum 8 caractères</p>
                     }
                 }
             </div>

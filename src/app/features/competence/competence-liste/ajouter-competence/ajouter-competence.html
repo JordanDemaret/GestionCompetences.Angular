@@ -5,10 +5,10 @@
         <input pInputText id="Nom" formControlName="nom">
         @if (Nom.touched && Nom.invalid) {
             @if(Nom.hasError('required')){
-                <p class="error">Le nom est requis.</p>
+                <p class="errorText">Le nom est requis.</p>
             }
             @else {
-                <p class="error">Le nom doit faire moi de 150 caractère.</p>
+                <p class="errorText">Le nom doit faire moi de 150 caractère.</p>
             }
         }
     </div>
@@ -24,7 +24,7 @@
         <p-date-picker id="Date" formControlName="dateDeDebut" dateFormat="dd/mm/yy"></p-date-picker>
         @if (Date.invalid) {
             @if(Date.hasError('required')){
-                <p class="error">La date est requis.</p>
+                <p class="errorText">La date est requis.</p>
             }
         }
     </div>
@@ -50,7 +50,7 @@
             appendTo="body"></p-select>
         @if(Categorie.touched && Categorie.invalid){
             @if(Categorie.hasError('required')){
-                <p class="error">La catégorie est requis.</p>
+                <p class="errorText">La catégorie est requis.</p>
             }
         }
     </div>
@@ -64,7 +64,7 @@
            ></p-select>
         @if(Niveau.touched && Niveau.invalid){
             @if(Niveau.hasError('required')){
-                <p class="error">La catégorie est requis.</p>
+                <p class="errorText">La catégorie est requis.</p>
             }
         }
     </div>

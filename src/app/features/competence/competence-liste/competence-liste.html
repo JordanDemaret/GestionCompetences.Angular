@@ -7,6 +7,11 @@
     Enregistrer les modifications
 </p-button>
 
+@if (message()) {
+    <div>
+        <p-message [closable]="true" (onClose)="this.message.set(null)">{{message()}}</p-message>
+    </div>
+}
 
 <app-filter-competence
     [competenceList]="competenceList()"
