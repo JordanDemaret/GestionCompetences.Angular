@@ -80,6 +80,26 @@ export class AjouterCompetence {
   }
 
   public resetForm() {
-    this.form.reset();
+    this.form.reset({
+      dateDeDebut: new Date(),
+      visibilite: VisibiliteEnum.Public,
+      statut: StatutEnum.AAcquerir
+    });
+  }
+
+  get Nom(){
+    return this.form.controls["nom"]
+  }
+
+  get Date(){
+    return this.form.controls["dateDeDebut"]
+  }
+
+  get Categorie(){
+    return this.form.controls["categorieId"]
+  }
+
+  get Niveau(){
+    return this.form.controls["niveauId"] 
   }
 }

@@ -8,9 +8,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonDirective } from 'primeng/button';
 import { MotDePasseValidatorError } from '../../../shared/validators/mot-de-passe.validator';
 import { AfficherMotDePasseDirective } from '../../../shared/directives/afficher-mot-de-passe.directive';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-  imports: [InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective],
+  imports: [InputTextModule, ReactiveFormsModule, ButtonDirective, 
+            AfficherMotDePasseDirective, MessageModule],
   selector: 'app-connexion',
   styleUrl: './connexion.css',
   templateUrl: './connexion.html',
@@ -26,7 +28,7 @@ export class Connexion {
 
   readonly form : FormGroup = inject(FormBuilder).nonNullable.group({
     email : ["",[Validators.required, Validators.email, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")]],
-    motDePasse : [null,[Validators.required]]
+    motDePasse : [null,[Validators.required,Validators.minLength(8)]]
   })
 
   get Email(){

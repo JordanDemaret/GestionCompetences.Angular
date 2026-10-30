@@ -6,7 +6,7 @@
 
 
         @if (erreur()) {
-            <p class="error">Code : {{erreur()?.code}} - Description : {{erreur()?.description}}</p>
+            <p-message severity="error" >{{erreur()?.description}}</p-message>
         }
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -14,12 +14,28 @@
             <div>
                 <label pLabel for="Email"> Email  </label>
                 <input pInputText id="Email" placeholder="Entre votre Email" formControlName="email"/>
-        
+    
+                @if (Email.touched && Email.invalid) {
+                    @if(Email.hasError('required')){
+                        <p class="error">L'email est requis.</p>
+                    }
+                    @else if (Email.hasError('email') || Email.hasError('pattern')) {
+                        <p class="error">Forma du email incorrecte.</p>
+                    }
+                }
             </div>
            
             <div>
                 <label pLabel for="MotDePasse">Mot de passe </label>
                 <input pInputText id="MotDePasse" placeholder="Entre votre mot de passe" formControlName ="motDePasse" appAfficherMotDePasse/>
+                @if (MotDePasse.touched && MotDePasse.invalid) {
+                    @if(MotDePasse.hasError('required')){
+                        <p class="error">Le mot de passe est requis.</p>
+                    }
+                    @else if (MotDePasse.hasError('minlength')) {
+                        <p class="error">Le champ doit faire minimum 8 caractères</p>
+                    }
+                }
             </div>
             
             <div>

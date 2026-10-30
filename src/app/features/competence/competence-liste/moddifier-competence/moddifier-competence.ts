@@ -7,7 +7,6 @@ import { CompetenceModel, StatutEnum, VisibiliteEnum } from '../../../../core/mo
 import { CategorieModel } from '../../../../core/models/categorie.model';
 import { NiveauModel } from '../../../../core/models/niveaux.model';
 import { ButtonModule } from 'primeng/button';
-import { Certificat } from '../../certificat/certificat';
 import { CertificatModel } from '../../../../core/models/certificat.model';
 
 @Component({
@@ -98,6 +97,15 @@ export class ModdifierCompetence {
   onCancel(): void {
     this.annuler.emit();
   }
+
+  get Nom(){
+    return this.form.controls["nom"]
+  }
+
+  get Date(){
+    return this.form.controls["dateDeDebut"]
+  }
+
 
 }
 

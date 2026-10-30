@@ -51,6 +51,8 @@ export class AjouterCetificat {
   }
 
   public resetForm() {
-    this.form.reset();
+    this.form.reset({
+      dateObtention: new Date()
+    });
   }
 }
