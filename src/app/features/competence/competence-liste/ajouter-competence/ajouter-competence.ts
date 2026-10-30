@@ -79,4 +79,7 @@ export class AjouterCompetence {
     this.annuler.emit();
   }
 
+  public resetForm() {
+    this.form.reset();
+  }
 }

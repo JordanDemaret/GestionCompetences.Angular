@@ -80,13 +80,15 @@
 </p-dialog>
 
 <p-dialog 
-    [(visible)]="ajouterCompetence"
+    [visible]="ajouterCompetence"
     header="Ajouter compétence"
     [modal]="true"
     [draggable]="false"
     
-    [style]="{ width: '30vw', height : '48vw'  }">
+    [style]="{ width: '30vw', height : '48vw'  }"
+    (onHide)="ajouterCompetence = false; formComp.resetForm()">
     <app-ajouter-competence
+        #formComp
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
         [certificatList]="certificatListe()"
