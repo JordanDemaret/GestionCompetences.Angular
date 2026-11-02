@@ -25,14 +25,16 @@ export class Stat implements OnInit{
   public categorieList = signal<string[]>([])
   public nivListe = signal<string[]>([])
   
-  dataCompNav = computed(() => { return {
+  dataCompNav = computed(() => { 
+    return {
       labels : this.nivListe(),
       datasets: [
         {
           data: this.nivListe().map(n => this.competenceList().filter(c=> c.niveauLibelle === n).length)
         }
       ]
-    }});
+    }
+  });
 
   dataCompCat= computed(() => { 
     const categories = this.categorieList();
@@ -77,10 +79,7 @@ export class Stat implements OnInit{
           data: finalData
         }
       ]
-    }});
-
-
-
+  }});
 
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({

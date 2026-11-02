@@ -7,15 +7,14 @@
     </p-card>   
     
     <p-card>
-        <h3>TEST 1!!!!!!!!!!!</h3>
+        <h3>Répartition des compétence par rapport au différent catégorie</h3>
         @if (dataCompCat()){
-            <p-chart type="doughnut" [data]="dataCompCat()"></p-chart>
+            <p-chart type="pie" [data]="dataCompCat()"></p-chart>
         }
         @else {
             <p>Chargement des statistiques...</p>
         }
     </p-card>
-
 
     <p-card>
         @if (dataCompNav()) {
@@ -26,9 +25,5 @@
             <p>Chargement des statistiques...</p>
         }
     </p-card>
-
- 
-      
-
       
 </div>
