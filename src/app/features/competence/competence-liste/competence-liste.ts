@@ -39,6 +39,7 @@ export class CompetenceListe implements OnInit{
   public certificatListe = signal<CertificatModel[]>([])
 
   public message  = signal<string|null>(null)
+  public errorMessage = signal<string|null>(null);
 
   displayNoteDialog: boolean = false;
   selectedNote: string = '';
@@ -88,7 +89,7 @@ export class CompetenceListe implements OnInit{
         this.message.set("Les Compétence ont bien été  réordonnée")
       },
       error: (err) => {
-        console.error('Erreur lors du réordonnancement', err);
+        this.errorMessage.set('Erreur lors du réordonnancement');
       },
       complete : () => {
         this.hasChanged.set(false);
@@ -125,7 +126,7 @@ export class CompetenceListe implements OnInit{
         this.message.set("Competence ajouter avec succès")
       },
       error: (err) => {
-        console.error('Erreur lors de l\'enregistrement en BDD :', err);
+        this.errorMessage.set("Erreur lors de l\'enregistrement en BDD :")
       },
       complete: () => {
         this.ajouterCompetence = false;
@@ -140,7 +141,7 @@ export class CompetenceListe implements OnInit{
         this.message.set("Competence modifier avec succès")
       },
       error: (err) => {
-        console.error('Erreur lors de l\'enregistrement en BDD :', err);
+        this.errorMessage.set("Erreur lors de l\'enregistrement en BDD :");
       },
       complete: () => {
         this.moddif = false;
@@ -161,7 +162,7 @@ export class CompetenceListe implements OnInit{
         this.message.set("Competence supprimer avec succès")
       },
       error: (err) => {
-        console.error('Erreur lors de l\'enregistrement en BDD :', err);
+        this.errorMessage.set("Erreur lors de l\'enregistrement en BDD :");
       },
       complete : () => {
         this.supprimerCompetence = false; 

@@ -13,6 +13,13 @@
     </div>
 }
 
+@if (errorMessage()) {
+    <div>
+        <p-message severity="error" [closable]="true" (onClose)="this.errorMessage.set(null)">{{errorMessage()}}</p-message>
+    </div>
+}
+
+
 <app-filter-competence
     [competenceList]="competenceList()"
     [categorieListe]="categorieList()"
