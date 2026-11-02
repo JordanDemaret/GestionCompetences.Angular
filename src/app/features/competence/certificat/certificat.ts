@@ -7,9 +7,10 @@ import { Dialog } from 'primeng/dialog';
 import { AjouterCetificat } from './ajouter-cetificat/ajouter-cetificat';
 import { DatePipe } from '@angular/common';
 import { ModifierCetificat } from './modifier-cetificat/modifier-cetificat';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-  imports: [TableModule, Button, Dialog, DatePipe, AjouterCetificat, ModifierCetificat],
+  imports: [TableModule, Button, Dialog, DatePipe, AjouterCetificat, ModifierCetificat, MessageModule],
   selector: 'app-certificat',
   styleUrl: './certificat.css',
   templateUrl: './certificat.html',
@@ -18,6 +19,8 @@ export class Certificat implements OnInit {
   
   readonly certificatServ = inject(CertificatServices);
   public certificatListe = signal<CertificatModel[]>([]);
+
+  public message  = signal<string|null>(null)
 
   ajouterCertif = false;
   moddifCertif = false;
@@ -51,6 +54,7 @@ export class Certificat implements OnInit {
     this.certificatServ.postCertificat(nouveauCertificat).subscribe({
        next: (certificat) =>{
         this.certificatListe.update(list => [...list, certificat ])
+        this.message.set("Certificat ajouter.")
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);
@@ -65,6 +69,7 @@ export class Certificat implements OnInit {
       this.certificatServ.putCertificat(certificat).subscribe({
         next: () => {
           this.certificatListe.update(liste => liste.map(c => c.id === certificat.id? certificat : c ) );
+          this.message.set("Certificat modifier.");
         },
         error: (err) => {
           console.error('Erreur lors de l\'enregistrement en BDD :', err);
@@ -81,7 +86,8 @@ export class Certificat implements OnInit {
 
     this.certificatServ.deleteCertificat(currentSelected.id).subscribe({
       next : () => {
-        this.certificatListe.update(liste => liste.filter(c => c.id !== currentSelected.id))
+        this.certificatListe.update(liste => liste.filter(c => c.id !== currentSelected.id));
+        this.message.set("Certificat supprimer.")
       },
       error: (err) => {
         console.error('Erreur lors de l\'enregistrement en BDD :', err);

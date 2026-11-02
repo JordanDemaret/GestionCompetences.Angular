@@ -7,6 +7,18 @@
     Enregistrer les modifications
 </p-button>
 
+@if (message()) {
+    <div>
+        <p-message [closable]="true" (onClose)="this.message.set(null)">{{message()}}</p-message>
+    </div>
+}
+
+@if (errorMessage()) {
+    <div>
+        <p-message severity="error" [closable]="true" (onClose)="this.errorMessage.set(null)">{{errorMessage()}}</p-message>
+    </div>
+}
+
 
 <app-filter-competence
     [competenceList]="competenceList()"
@@ -80,13 +92,15 @@
 </p-dialog>
 
 <p-dialog 
-    [(visible)]="ajouterCompetence"
+    [visible]="ajouterCompetence"
     header="Ajouter compétence"
     [modal]="true"
     [draggable]="false"
     
-    [style]="{ width: '30vw', height : '48vw'  }">
+    [style]="{ width: '30vw', height : '48vw'  }"
+    (onHide)="ajouterCompetence = false; formComp.resetForm()">
     <app-ajouter-competence
+        #formComp
         [categorieList]="categorieList()"
         [niveauList]="niveauList()"
         [certificatList]="certificatListe()"
