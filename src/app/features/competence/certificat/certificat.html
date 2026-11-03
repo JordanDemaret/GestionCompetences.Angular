@@ -2,13 +2,20 @@
     Ajouter des compétence
 </p-button>
 
+
+@if (message()) {
+    <div>
+        <p-message [closable]="true" (onClose)="this.message.set(null)">{{message()}}</p-message>
+    </div>
+}
+
 <p-table [value]="certificatListe()"> 
     <ng-template #header>
         <tr>
             <th>Nom</th>
             <th>Code</th>
             <th>Editeur</th>
-            <th>Date D'obtention"</th>
+            <th>Date D'obtention</th>
             <th>Nombre de Compétence liée</th>
             <th></th>
         </tr>
@@ -41,8 +48,9 @@
     [modal]="true"
     [draggable]="false"
     [style]="{ width: '40rem' }"
-    (onHide)="ajouterCertif=false;">
+    (onHide)="ajouterCertif=false; formComp.resetForm()">
     <app-ajouter-cetificat
+    #formComp
         (sauvegarder)="ajouterCertificat($event)"
         (annuler)="ajouterCertif=false"
     />
@@ -55,7 +63,8 @@
     [draggable]="false"
     [style]="{ width: '40rem' }"
     (onHide)="moddifCertif=false;">
-    <app-modifier-cetificat
+    <app-modifier-cetificat #formComp
+
         [certificat]="CertifSelec()!"
         (sauvegarder)="modifierCertificat($event)"
         (annuler)="moddifCertif=false"

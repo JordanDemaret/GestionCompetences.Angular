@@ -51,7 +51,7 @@ export class ModifierCetificat {
       codeCertificat: this.form.controls["codeCertificat"].value!,
       editeur : this.form.controls["editeur"].value?? "",
       dateObtention : dateSelectionnee,
-      nombreDeCompetencesLiees : 0,
+      nombreDeCompetencesLiees : this.certificat().nombreDeCompetencesLiees ?? 0,
       id : this.certificat()!.id
     }
 

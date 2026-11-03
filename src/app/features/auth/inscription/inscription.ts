@@ -9,9 +9,10 @@ import { Router, RouterLink } from '@angular/router';
 import { ErreurModel } from '../../../core/models/erreur.models';
 import { AfficherMotDePasseDirective } from "../../../shared/directives/afficher-mot-de-passe.directive";
 import { switchMap } from 'rxjs';
+import { MessageModule } from 'primeng/message';
 
 @Component({
-  imports: [InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective, RouterLink],
+  imports: [InputTextModule, ReactiveFormsModule, ButtonDirective, AfficherMotDePasseDirective, RouterLink,MessageModule],
   selector: 'app-inscription',
   styleUrl: './inscription.css',
   templateUrl: './inscription.html',
