@@ -1,12 +1,16 @@
-<h2>Statistique.</h2>
+<div style="    display: flex;
+    align-items: center ;
+    justify-content: center;">
+    <h2>Statistique.</h2>
+</div>
 
-<div class="a">
-    <p-card>
+<div class="zone">
+    <p-card class="carte">
         <h3>Nombre de compétence de l'utilisateur</h3>
         <span class="text-5xl font-bold text-primary">{{ competenceList().length }}</span>
     </p-card>   
     
-    <p-card>
+    <p-card class="carte">
         <h3>Répartition des compétence par rapport au différent catégorie</h3>
         @if (dataCompCat()){
             <p-chart type="pie" [data]="dataCompCat()"></p-chart>
@@ -16,7 +20,7 @@
         }
     </p-card>
 
-    <p-card>
+    <p-card class="carte">   
         @if (dataCompNav()) {
             <h3>Répartition des compétence par rapport au différent niveau</h3> 
             <p-chart type="doughnut" [data]="dataCompNav()"></p-chart>
@@ -24,6 +28,14 @@
         @else {
             <p>Chargement des statistiques...</p>
         }
+    </p-card>    
+    
+    <p-card class="carte">
+        <p-button 
+      [label]="vueMoisActif() ? 'Passer en vue par Année' : 'Passer à la vue des 12 derniers mois'" 
+      (onClick)="vueMoisActif.set(! vueMoisActif())">
+        </p-button>
+        <p-chart type="bar" [data]="dataDateCompetence()" [options]="chartOptions"/>
     </p-card>
-      
 </div>
+

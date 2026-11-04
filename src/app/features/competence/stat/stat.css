@@ -1,10 +1,9 @@
-.a{
+.zone{
     display: grid;
-    grid-template-columns: auto auto auto;
-}
-p-card {
-    width: 500px; 
-    min-height: 200px;
-    margin: 0 auto;
+    grid-template-columns:  repeat(auto-fit, minmax(400px, 1fr));
 
+}
+.carte {
+    max-width: 545px;
+    min-height: 180px;
 }

@@ -1,19 +1,20 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CompetenceModel } from '../../../core/models/competence.model';
 import { CompetenceService } from '../../../core/services/competence.service';
-import { ChartModule } from 'primeng/chart'; // Importer ChartModule de PrimeNG
+import { ChartModule } from 'primeng/chart';
 import { NiveauModel } from '../../../core/models/niveaux.model';
 import { NiveauService } from '../../../core/services/niveau.service';
 import { CardModule } from 'primeng/card';
 import { CategoriesService } from '../../../core/services/categories.service';
 import { CategorieModel } from '../../../core/models/categorie.model';
+import {ButtonModule } from 'primeng/button';
+
 
 @Component({
-  imports: [ChartModule, CardModule],
+  imports: [ChartModule, CardModule, ButtonModule],
   selector: 'app-stat',
   styleUrl: './stat.css',
-  templateUrl: './stat.html',
-  standalone : true
+  templateUrl: './stat.html'
 })
 export class Stat implements OnInit{
 
@@ -24,8 +25,13 @@ export class Stat implements OnInit{
   public competenceList = signal<CompetenceModel[]>([])
   public categorieList = signal<string[]>([])
   public nivListe = signal<string[]>([])
+
+  public vueMoisActif = signal<boolean>(true)
   
   dataCompNav = computed(() => { 
+    if (this.competenceList().length ==0 || this.nivListe().length == 0) {
+      return null;
+    }
     return {
       labels : this.nivListe(),
       datasets: [
@@ -39,14 +45,15 @@ export class Stat implements OnInit{
   dataCompCat= computed(() => { 
     const categories = this.categorieList();
     const competences = this.competenceList();
+    const nombreElem = 5 
 
-    if (!categories || !competences) {
+    if (categories.length ==0 || competences.length == 0) {
       return null;
     }
 
     let categoryCounts = categories.map(cat => ({
       name: cat,
-      count: competences.filter(c=> c.categorieNom === cat).length // ne marche as 
+      count: competences.filter(c=> c.categorieNom === cat).length 
 
     }));
     categoryCounts.sort((a, b) => b.count - a.count);
@@ -56,12 +63,12 @@ export class Stat implements OnInit{
     let finalLabels: string[] = [];
     let finalData: number[] = [];
     
-    if (categoryCounts.length > 9) {
+    if (categoryCounts.length > nombreElem) {
 
-      finalLabels = categoryCounts.slice(0, 9).map(item => item.name);
-      finalData = categoryCounts.slice(9).map(item => item.count);
+      finalLabels = categoryCounts.slice(0, nombreElem).map(item => item.name);
+      finalData = categoryCounts.slice(0,nombreElem).map(item => item.count);
 
-      const sumOthers = categoryCounts.slice(9).reduce((acc, curr) => acc + curr.count, 0);
+      const sumOthers = categoryCounts.slice(nombreElem).reduce((acc, curr) => acc + curr.count, 0);
       if (sumOthers > 0) {
         finalLabels.push('Autre');
         finalData.push(sumOthers);
@@ -71,7 +78,6 @@ export class Stat implements OnInit{
       finalLabels = categoryCounts.map(item => item.name);
       finalData = categoryCounts.map(item => item.count);
     }
-
     return {
       labels : finalLabels,
       datasets: [
@@ -80,6 +86,31 @@ export class Stat implements OnInit{
         }
       ]
   }});
+
+  dataDateCompetence = computed(() => {
+    if(this.vueMoisActif())
+      return this.calFiltre12Mois(this.competenceList())
+    else
+      return this.calFiltreAns(this.competenceList());
+  })
+
+  chartOptions = {
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          precision: 0     
+        }
+      }
+    }, 
+    plugins: {
+      legend: {
+        onClick: (e : any) => {
+          e.stopPropagation(); 
+        }
+      }
+    }
+  };
 
   ngOnInit(): void {
     this.competenceServ.getAllCompetence().subscribe({
@@ -97,6 +128,75 @@ export class Stat implements OnInit{
         this.nivListe.set(niveau.map(n => n.label))
       }
     })
+  }
+
+  private calFiltre12Mois(competences : CompetenceModel[]){
+    const mnt = new Date();
+    const unAns = new Date();
+    unAns.setFullYear(mnt.getFullYear()-1)
+
+    const trier = competences.filter(c => {
+      const date = new Date(c.dateDeDebut);
+      return date >= unAns && date <= mnt
+    })
+
+    const labels: string[] = [];
+    const dataCounts: number[] = [];
+
+    for (let index = 11; index >= 0; index--) {
+      const dateCible = new Date()
+      dateCible.setMonth(mnt.getMonth()-index)
+
+      labels.push(dateCible.toLocaleString('default', { month: 'short', year: 'numeric' }));
+
+      dataCounts.push( (trier.filter(c => {
+        const date = new Date(c.dateDeDebut);
+        return date.getMonth() == dateCible.getMonth() && date.getFullYear() == dateCible.getFullYear()
+      })).length)
+        
+    } 
+
+    return {
+      labels : labels,
+      datasets: [
+        {
+          label : "Nombre de compétence",
+          data: dataCounts
+        }
+      ]
+    }
+
+  }
+
+  private calFiltreAns(competences : CompetenceModel[]){
+    const annees = new Set(competences.map(c => new Date(c.dateDeDebut).getFullYear()))
+
+    const anneeSet= Array.from(annees).sort((a, b) => a - b);
+
+    const labels: string[] = [];
+    const dataCounts: number[] = [];
+
+    anneeSet.forEach(annee => {
+      labels.push(annee.toString())
+
+      dataCounts.push((competences.filter(c => {
+        const date = new Date(c.dateDeDebut);
+        return date.getFullYear() == annee
+      })).length)
+    })
+
+
+
+    return {
+      labels : labels,
+      datasets: [
+        {
+          label : "Nombre de compétence",
+          data: dataCounts
+        }
+      ]
+    }
+
   }
 
 }
