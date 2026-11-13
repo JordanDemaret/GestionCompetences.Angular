@@ -1,1 +1,58 @@
-<p>Fonctionnalité en cours de développement (bientôt disponible).</p>
+<div style="    display: flex;
+    align-items: center ;
+    justify-content: center;">
+    <h1>Statistique.</h1>
+</div>
+
+<div class="zone">
+    <p-card class="carte">
+        <div class="divAA">
+           <span>Nombre de compétences de l'utilisateur</span>
+            <span class="nombre">{{competenceList().length}}</span>
+        </div>
+    </p-card>  
+    
+    <p-card class="carte">
+        <div class="divAA">
+           <span>Nombre de certificat de l'utilisateur</span>
+            <span class="nombre">{{nbrCerti()}}</span>
+        </div>
+    </p-card>
+ 
+
+    <p-card class="carte">
+        <div class="divAA">
+            <span>Taux de maîtrise (Avancé + Expert)</span>
+            <span class="nombre">{{pourcentageMaitrise().toFixed(2)}}%</span>
+        </div>
+    </p-card>
+
+    <p-card class="carte">
+        <h3>Répartition des compétence par rapport au différent catégorie</h3>
+        @if (dataCompCat()){
+            <p-chart type="pie" [data]="dataCompCat()"></p-chart>
+        }
+        @else {
+            <p>Chargement des statistiques...</p>
+        }
+    </p-card>
+
+    <p-card class="carte">   
+        @if (dataCompNav()) {
+            <h3>Répartition des compétence par rapport au différent niveau</h3> 
+            <p-chart type="doughnut" [data]="dataCompNav()"></p-chart>
+        }
+        @else {
+            <p>Chargement des statistiques...</p>
+        }
+    </p-card>    
+    
+    <p-card class="carte">
+        <p-button 
+      [label]="vueMoisActif() ? 'Passer en vue par Année' : 'Passer à la vue des 12 derniers mois'" 
+      (onClick)="vueMoisActif.set(! vueMoisActif())">
+        </p-button>
+        <p-chart type="bar" [data]="dataDateCompetence()" [options]="chartOptions"/>
+    </p-card>
+</div>
+
