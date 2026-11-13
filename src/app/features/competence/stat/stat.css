@@ -1,9 +1,26 @@
-.zone{
+.zone {
     display: grid;
-    grid-template-columns:  repeat(auto-fit, minmax(400px, 1fr));
-
+    grid-template-columns: repeat(3, minmax(320px, 1fr));
+    gap: 1.5rem; 
 }
+
 .carte {
-    max-width: 545px;
+    width: 100%;
     min-height: 180px;
+}
+
+.divAA {
+  display: grid;
+  grid-template-rows: auto 1fr; 
+  height: 100%;
+  text-align: center; 
+}
+
+.nombre {
+    margin-top: 100px;
+    font-size: 5rem; 
+    line-height: 1;
+    font-weight: bold;
+    align-self: center;    
+    justify-self: center;  
 }

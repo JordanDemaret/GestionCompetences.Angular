@@ -8,10 +8,13 @@ import { CardModule } from 'primeng/card';
 import { CategoriesService } from '../../../core/services/categories.service';
 import { CategorieModel } from '../../../core/models/categorie.model';
 import {ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { CertificatServices } from '../../../core/services/certificat.services';
+import { CertificatModel } from '../../../core/models/certificat.model';
 
 
 @Component({
-  imports: [ChartModule, CardModule, ButtonModule],
+  imports: [ChartModule, CardModule, ButtonModule, TableModule],
   selector: 'app-stat',
   styleUrl: './stat.css',
   templateUrl: './stat.html'
@@ -21,10 +24,12 @@ export class Stat implements OnInit{
   readonly competenceServ = inject(CompetenceService);
   readonly categorie = inject(CategoriesService);
   readonly niveauServ = inject(NiveauService);
+  readonly certServ = inject(CertificatServices);
 
   public competenceList = signal<CompetenceModel[]>([])
   public categorieList = signal<string[]>([])
   public nivListe = signal<string[]>([])
+  public nbrCerti = signal<number>(0)
 
   public vueMoisActif = signal<boolean>(true)
   
@@ -128,6 +133,11 @@ export class Stat implements OnInit{
         this.nivListe.set(niveau.map(n => n.label))
       }
     })
+    this.certServ.getAllCertificats().subscribe({
+      next : (certi : CertificatModel[]) => {
+        this.nbrCerti.set(certi.length)
+      }
+    })
   }
 
   private calFiltre12Mois(competences : CompetenceModel[]){
@@ -185,8 +195,6 @@ export class Stat implements OnInit{
       })).length)
     })
 
-
-
     return {
       labels : labels,
       datasets: [
@@ -199,4 +207,7 @@ export class Stat implements OnInit{
 
   }
 
+  pourcentageMaitrise = computed(() => {
+    return this.competenceList().filter(c => c.niveauLibelle=="Expect" || c.niveauLibelle == "Avancé").length/this.competenceList().length *100
+  })
 }

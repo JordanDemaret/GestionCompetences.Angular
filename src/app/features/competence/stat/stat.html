@@ -1,15 +1,32 @@
 <div style="    display: flex;
     align-items: center ;
     justify-content: center;">
-    <h2>Statistique.</h2>
+    <h1>Statistique.</h1>
 </div>
 
 <div class="zone">
     <p-card class="carte">
-        <h3>Nombre de compétence de l'utilisateur</h3>
-        <span class="text-5xl font-bold text-primary">{{ competenceList().length }}</span>
-    </p-card>   
+        <div class="divAA">
+           <span>Nombre de compétences de l'utilisateur</span>
+            <span class="nombre">{{competenceList().length}}</span>
+        </div>
+    </p-card>  
     
+    <p-card class="carte">
+        <div class="divAA">
+           <span>Nombre de certificat de l'utilisateur</span>
+            <span class="nombre">{{nbrCerti()}}</span>
+        </div>
+    </p-card>
+ 
+
+    <p-card class="carte">
+        <div class="divAA">
+            <span>Taux de maîtrise (Avancé + Expert)</span>
+            <span class="nombre">{{pourcentageMaitrise().toFixed(2)}}%</span>
+        </div>
+    </p-card>
+
     <p-card class="carte">
         <h3>Répartition des compétence par rapport au différent catégorie</h3>
         @if (dataCompCat()){
