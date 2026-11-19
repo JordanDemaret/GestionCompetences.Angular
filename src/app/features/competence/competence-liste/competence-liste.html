@@ -167,6 +167,7 @@
     
     [style]="{ width: '30vw', height : '48vw'  }">
     <app-pdf-competence
-        (fin)="modePDF= false"
+        [competencesListe]="competenceList()"
+        (end)="modePDF= false"
     ></app-pdf-competence>
 </p-dialog>

@@ -1,6 +1,9 @@
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { jsPDF } from "jspdf";
+import autoTable from 'jspdf-autotable';
 import { ButtonModule } from 'primeng/button';
+import { CompetenceModel, VisibiliteEnum } from '../../../../core/models/competence.model';
+
 @Component({
   imports: [ButtonModule],
   selector: 'app-pdf-competence',
@@ -9,16 +12,32 @@ import { ButtonModule } from 'primeng/button';
 })
 export class PdfCompetence {
 
-  fin =  output();
+  competencesListe = input<CompetenceModel[]>([]);
+  end =  output();
 
   savePdf() {
     const doc = new jsPDF();
-    doc.text("Hello world!", 10, 10);
+    const body = this.competencesListe().filter(c => c.visibilite == VisibiliteEnum.Public)
+            .map(c => [
+              c.nom, 
+              c.dateDeDebut ? new Date(c.dateDeDebut as unknown as string).toLocaleDateString('fr-BE') : '',
+              c.categorieNom ?? '',
+              c.niveauLibelle ?? '',]);
+
+
+
+    autoTable(doc, {
+      head :  [['Nom', 'Date de début', "Catégorie", "Niveau"]],
+      body : body?? []
+    })
+    
+
+    
     doc.save("a4.pdf");
     this.onCancel();
   }
 
   onCancel(){
-    this.fin.emit()
+    this.end.emit()
   }
 }
