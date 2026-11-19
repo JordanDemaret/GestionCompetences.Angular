@@ -20,6 +20,11 @@
 }
 
 
+<p-button (click)="modePDF=true" severity="contrast" >
+    Générer un pdf
+</p-button>
+
+
 <app-filter-competence
     [competenceList]="competenceList()"
     [categorieListe]="categorieList()"
@@ -151,4 +156,17 @@
             Non
         </p-button>
     </div>
+</p-dialog>
+
+<p-dialog
+    [(visible)]="modePDF"
+    header="Mode pdf"
+    [modal]="true"
+    [dismissableMask]="true"
+    [draggable]="false"
+    
+    [style]="{ width: '30vw', height : '48vw'  }">
+    <app-pdf-competence
+        (fin)="modePDF= false"
+    ></app-pdf-competence>
 </p-dialog>

@@ -18,10 +18,11 @@ import { FormsModule } from '@angular/forms';
 import { FilterCompetence } from './filter-competence/filter-competence';
 import {CdkDrag,CdkDragDrop,CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import { MessageModule } from 'primeng/message';
+import { PdfCompetence } from './pdf-competence/pdf-competence';
 
 @Component({
   imports: [ButtonModule, DatePipe, StatutPipe, VisibilitePipe, DialogModule, AjouterCompetence,
-    ModdifierCompetence, FormsModule, FilterCompetence, CdkDropList, CdkDrag, MessageModule],
+    ModdifierCompetence, FormsModule, FilterCompetence, CdkDropList, CdkDrag, MessageModule, PdfCompetence],
   selector: 'app-competence-liste',
   styleUrl: './competence-liste.css',
   templateUrl: './competence-liste.html',
@@ -41,12 +42,13 @@ export class CompetenceListe implements OnInit{
   public message  = signal<string|null>(null)
   public errorMessage = signal<string|null>(null);
 
-  displayNoteDialog: boolean = false;
-  selectedNote: string = '';
+  displayNoteDialog = false;
+  selectedNote = '';
 
-  ajouterCompetence : boolean = false
+  ajouterCompetence  = false
   moddif = false
-  supprimerCompetence : boolean = false
+  supprimerCompetence  = false
+  modePDF = false 
 
   competenceSelect = signal<CompetenceModel|null>(null)
 
