@@ -1,5 +1,24 @@
-<p>pdf-competence works!</p>
-<div>
-    <p-button (click)="savePdf()">Save</p-button>
-    <p-button (click)="onCancel()">annuler</p-button>
-</div>
+<form [formGroup]="form">
+
+    <div>
+        <label for="Titre">Titre</label>
+        <input pInputText id="Titre" formControlName="titre">
+    </div>
+
+     <div>
+        <label for="desc">Description</label>
+        <input pInputText id="desc" formControlName="description">
+    </div>
+
+    <div>
+        <label for="name">Nom</label>
+        <input pInputText formControlName="nameFile" id="name"> .pdf
+    </div>
+
+
+    <div>
+        <p-button (click)="savePdf()">Save</p-button>
+        <p-button (click)="onCancel()">annuler</p-button>
+    </div>
+
+</form>
